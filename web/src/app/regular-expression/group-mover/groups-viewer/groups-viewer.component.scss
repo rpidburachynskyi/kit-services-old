@@ -1,0 +1,13 @@
+:host {
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+
+    border: 2px solid black;
+    border-radius: 20px;
+
+    overflow: auto;
+}

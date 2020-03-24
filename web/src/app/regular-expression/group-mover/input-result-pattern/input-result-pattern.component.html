@@ -1,0 +1,53 @@
+<div class="tab">
+    <button class="tab-item" (click)="changeTab(0)">JS Each</button>
+    <button class="tab-item" (click)="changeTab(1)">JS Global</button>
+    <button class="tab-item" (click)="changeTab(2)">Arguments</button>
+</div>
+<div 
+    [ngStyle]="{'display': tabIndex === 0 ? 'flex' : 'none'}"
+    class="input-function"
+    >
+    Function with match parameter, try console.log(match) and watch console
+    <div 
+        id="inputEachFunction"
+        class="input-function" 
+        (keyup)="setEachFunctionText()"
+        ngDefaultControl>
+    </div>
+    <div class="function-errors-bar" *ngIf="eachFunctionErrors.length !== 0">
+        <span *ngFor="let error of eachFunctionErrors">
+            {{ error.text }}
+        </span>
+    </div>
+</div>
+
+<div 
+    [ngStyle]="{'display': tabIndex === 1 ? 'flex' : 'none'}"
+    class="input-function"
+    >
+    Function with match parameter, try console.log(match) and watch console
+    <div 
+        id="inputGlobalFunction"
+        class="input-function" 
+        (keyup)="setGlobalFunctionText()"
+        ngDefaultControl>
+    </div>
+    <div class="function-errors-bar" *ngIf="eachFunctionErrors.length !== 0">
+        <span *ngFor="let error of eachFunctionErrors">
+            {{ error.text }}
+        </span>
+    </div>
+</div>
+
+<div 
+    [ngStyle]="{'display': tabIndex === 2 ? 'flex' : 'none'}"
+    class="input-function"
+    >
+    %1, %2... - arguments
+    <div 
+        id="inputArgumentsCode"
+        class="input-function" 
+        (keyup)="setArgumentsText()"
+        ngDefaultControl>
+    </div>
+</div>

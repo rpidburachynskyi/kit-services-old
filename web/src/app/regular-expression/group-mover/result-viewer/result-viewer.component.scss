@@ -1,0 +1,17 @@
+:host {
+    padding: 5px;
+    display: flex;
+    
+    flex-grow: 1;
+
+    border-radius: 20px;
+    border: 2px solid black;
+}
+
+.result {
+    flex: 1;
+    
+    white-space: pre-wrap;
+    overflow: auto;
+
+}

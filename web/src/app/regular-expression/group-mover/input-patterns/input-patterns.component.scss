@@ -1,0 +1,21 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.reg-exp-pattern {
+    padding: 1px 10px;
+    margin-bottom: 5px;
+
+    border-radius: 20px;
+    font-size: 19pt;
+
+    border-color: black;
+}
+
+.text-pattern {
+    height: calc(100% - 45px);
+    flex: 1;
+
+    border: 2px solid black;
+}

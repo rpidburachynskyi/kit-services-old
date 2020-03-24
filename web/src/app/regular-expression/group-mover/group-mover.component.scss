@@ -1,0 +1,13 @@
+:host {
+    padding: 10px;
+    
+    display: flex;
+    flex-grow: 1;
+}
+
+.inputs, .outputs {
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+}

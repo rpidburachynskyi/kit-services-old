@@ -1,0 +1,9 @@
+<input
+    class="reg-exp-pattern"
+    [(ngModel)]="regExpPattern" 
+    (keyup)="setRegExpPattern()"/>
+<div 
+    id="text-pattern"
+    class="text-pattern" 
+    (keyup)="setTextPattern()"
+></div>

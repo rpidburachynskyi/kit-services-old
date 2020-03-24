@@ -1,0 +1,14 @@
+body {
+    padding: 0;
+    margin: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+}
+
+.CodeMirror.cm-s-default {
+    height: 100%!important; 
+    // code block fill parent
+}
