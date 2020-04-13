@@ -23,19 +23,18 @@ export class JsTextComponent implements OnInit {
     this.inputText = CodeMirror(document.getElementById("JSText-inputText"), {
       lineNumbers: true,
       mode: { name: "javascript", json: true },
-      value: "AA"
+      value: "Text that gets into the function",
     });
 
     this.outputText = CodeMirror(document.getElementById("JSText-outputText"), {
       lineNumbers: true,
-      mode: { name: "javascript", json: true },
-      value: "AA"
+      mode: { name: "javascript", json: true }
     });
 
     this.functionText = CodeMirror(document.getElementById("JSText-functionText"), {
       lineNumbers: true,
       mode: { name: "javascript", json: true },
-      value: "AA"
+      value: "function (text) {\n\treturn text.split(' ').join(' - ');\n}"
     });
 
     this.jsTest.outputText$.subscribe(output => {
@@ -43,7 +42,8 @@ export class JsTextComponent implements OnInit {
     });
 
     Split([".input-text", ".function-text", ".output-text"], { sizes: [20, 60, 20], direction: "vertical" });
-    //this.setInputText();
+    this.setInputText();
+    this.setFunctionText();
   }
 
   setInputText() {

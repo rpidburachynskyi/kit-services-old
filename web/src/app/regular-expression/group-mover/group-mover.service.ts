@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Group } from './group.model';
 import { BehaviorSubject } from 'rxjs';
 import { CodeError } from './input-result-pattern/code-error.model';
+import { GroupMoverExample } from 'src/app/models/services/regular-expression/examples/group-mover-example.model';
 
 enum ProcessType {
 	EachGroup,
@@ -13,6 +14,16 @@ enum ProcessType {
 	providedIn: 'root'
 })
 export class GroupMoverService {
+	example: GroupMoverExample = {
+		regularExpression: "",
+		resultEach: "",
+		resultGlobal: "",
+		resultArguments: "",
+		type: "each",
+		value: "",
+		
+	};
+
 	regularExpressionPattern: string;
 	textPattern: string;
 
@@ -33,6 +44,11 @@ export class GroupMoverService {
 		this.result$ = new BehaviorSubject<string>("");
 
 		this.resultEachFunctionErrors$ = new BehaviorSubject<CodeError[]>([]);
+	}
+
+	setGroupMoverExample(example: GroupMoverExample) {
+		console.log(example);
+		this.example = example;
 	}
 
 	setRegExpPattern(pattern:string) {

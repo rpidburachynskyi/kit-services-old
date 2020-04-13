@@ -1,0 +1,51 @@
+<header>
+    <h1>Kit services</h1>
+    <h5>Will help you to decide your small problem (c) Pidburachynskyi Rostyslav</h5>
+</header>
+<main>
+    <section class="service-section" *ngFor="let service of allServices">
+        <div class="service-section__header">
+            <h4 class="service-section__header-title">{{ service.name }}</h4>
+            <button class="service-section__header-redirect-button" [routerLink]="service.path">
+                <svg version="1.0" id="Шар_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+                    style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                    <style type="text/css">
+                        .st0 {
+                            fill: none;
+                            stroke: #F7931E;
+                            stroke-width: 25;
+                            stroke-linecap: round;
+                            stroke-miterlimit: 10;
+                        }
+
+                        .st1 {
+                            fill: #F7931E;
+                        }
+                    </style>
+                    <g>
+                        <line class="st0" x1="68" y1="256" x2="412.5" y2="256.5" />
+                    </g>
+                    <g>
+                        <line class="st0" x1="334.2" y1="158.2" x2="431.8" y2="255.8" />
+                    </g>
+                    <g>
+                        <line class="st0" x1="431.8" y1="256.2" x2="334.2" y2="353.8" />
+                    </g>
+                    <g>
+                        <path class="st1" d="M487,26v461H25V26H487 M512,1H0v511h512V1L512,1z" />
+                    </g>
+                </svg>
+            </button>
+        </div>
+        <div class="divider"></div>
+        <div class="service-section__body">
+            <menu>
+                <li *ngFor="let subservice of service.subservices">
+                    <a [routerLink]="service.path + subservice.path">{{ subservice.name }}</a>
+                </li>
+            </menu>
+            <a class="service-section__body-see-more" [routerLink]="service.path">See more...</a>
+        </div>
+    </section>
+</main>

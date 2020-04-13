@@ -1,1 +1,32 @@
-<p>regular-expression works!</p>
+<header>
+    <h4 class="title">
+        Regular expression
+    </h4>
+    
+    <span class="description">
+    </span>
+    
+</header>
+
+<main>
+    <section class="part" *ngFor="let service of subservices">
+        <a [routerLink]="'/regular-expression' + service.path">
+            <h4 class="title">{{ service.name }}</h4>
+        </a>
+
+        <span class="description">
+            {{ service.description }}
+        </span>
+        <span>Examples: </span>
+        <menu class="examples">
+            <li *ngFor="let example of service.examples;let index = index;">
+                <a routerLink="/regular-expression/group-mover" 
+                    [queryParams]="{ example: index + 1 }"
+                >{{ example.name }}</a>
+                <span>
+                    {{ example.description }}
+                </span>
+            </li>
+        </menu>
+    </section>    
+</main>

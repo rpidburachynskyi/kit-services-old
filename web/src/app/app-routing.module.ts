@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { JsTextComponent } from './texts/js-text/js-text.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: 'jst', component: JsTextComponent}
+  { path: '', component: HomeComponent }
 ];
 
 @NgModule({

@@ -27,6 +27,9 @@ export class JsTestService {
   }
 
   proccessText() {
+    if(!this.inputText) return;
+    if(!this.functionText) return;
+
     const f = new Function("text", `return (${this.functionText})(text)`);
     const result = f(this.inputText);
     this.outputText$.next(typeof result === 'string' ? result : "" + result);

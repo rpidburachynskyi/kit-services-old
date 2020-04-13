@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, Input, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
 import { GroupMoverService } from '../group-mover.service';
+import { ActivatedRoute } from '@angular/router';
 
-declare let CodeMirror: any;
+declare const CodeMirror: any;
 
 @Component({
   selector: 'app-input-patterns',
@@ -12,24 +13,39 @@ export class InputPatternsComponent implements OnInit {
   // @ViewChild("regExp", { static: true }) regExpInput : ElementRef;
   // @ViewChild("movePattern", { static: true }) movePatternInput : ElementRef;
 
-  regExpPattern:string = "Question\\s+(\\d+)\\s-\\s(.*[:?])\\s*.*\\s.*\\s*.*!\\w\\)(.*)";
+  regExpPattern: string;
   textPattern: any;
 
 
-  constructor(private groupMover : GroupMoverService) {
+  constructor(
+    private groupMover: GroupMoverService,
+    private activated: ActivatedRoute
+  ) {
+
   }
 
   ngOnInit() {
+    
     this.textPattern = CodeMirror(document.getElementById("text-pattern"), {
-      value: `Question 1 - What is your name? 
-  !a) Rostik
-  b)Roman
-  c)Ruslan
-Question 2 - What are you years old? 
-  a)18
-  !b)19
-  c)20`
+      value: this.groupMover.example.value,
+      mode: { name: "javascript", json: true },
+      matchBrackets: true,
+      indentUnit: 4,
+      smartIndent: true,
+      tabSize: 4,
+      indentWithTabs: true,
     });
+
+    this.regExpPattern = this.groupMover.example.regularExpression;
+
+
+    console.log(this.textPattern.on);
+    
+    setTimeout(() => {
+      this.textPattern.markText({ line: 1, ch: 1}, { line: 2, ch: 3}, {css: "background-color: red"});
+      
+    }, 1500);
+    
     this.setRegExpPattern();
     this.setTextPattern();
   }
@@ -41,5 +57,4 @@ Question 2 - What are you years old?
   setTextPattern(): void {
     this.groupMover.setTextPattern(this.textPattern.getValue());
   }
-
 }

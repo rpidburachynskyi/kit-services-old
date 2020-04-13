@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,12 @@ import { RegularExpressionModule } from './regular-expression/regular-expression
 import { TextsComponent } from './texts/texts.component';
 import { JsTextComponent } from './texts/js-text/js-text.component';
 import { JsTestService } from './texts/js-text/js-test.service';
+import { TextsRoutingModule } from './texts/texts-routing.module';
+import { DesignCleanComponent } from './texts/design-clean/design-clean.component';
+import { CodesComponent } from './codes/codes.component';
+import { MinimizerComponent } from './codes/minimizer/minimizer.component';
+import { CodesModule } from './codes/codes.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -27,13 +34,20 @@ import { JsTestService } from './texts/js-text/js-test.service';
     ResultViewerComponent,
     CustominputComponent,
     TextsComponent,
-    JsTextComponent
+    JsTextComponent,
+    DesignCleanComponent,
+    CodesComponent,
+    MinimizerComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RegularExpressionModule
+    RegularExpressionModule,
+    TextsRoutingModule,
+    CodesModule,
+    HttpClientModule
   ],
   providers: [
     JsTestService

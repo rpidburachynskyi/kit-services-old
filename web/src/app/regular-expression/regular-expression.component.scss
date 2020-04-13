@@ -1,0 +1,42 @@
+:host {
+    max-width: 1024px;
+
+    flex: 1;
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    padding: 0;
+    margin: 0;
+    font-size: 28pt;
+}
+
+.description {
+
+}
+
+main {
+
+}
+
+.part {
+    padding: 10px;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+
+    border: 2px solid black;
+
+    & .description {
+
+    }
+
+    & .examples {
+        margin: 0;
+        grid-column: 1 / 3;
+    }
+}
