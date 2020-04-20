@@ -1,8 +1,17 @@
+@import "../styles/colors";
+
 :host {
     flex: 1;
 
+    display: grid;
+    grid-template-rows: 60px auto;
+
+    background-color: black;
+    color: $minor-300;
+}
+
+main {
     display: flex;
-    justify-content: center;
 }
 
 .description {

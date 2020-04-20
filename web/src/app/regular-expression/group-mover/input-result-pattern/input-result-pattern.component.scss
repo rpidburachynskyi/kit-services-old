@@ -1,10 +1,11 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    height: 50%;
+    flex: 1;
 
-    border-radius: 20px;
-    border: 2px solid black;
+    display: grid;
+    grid-template-rows: 20px auto;
+
+    border: 1px solid white;
     overflow: hidden;
 }
 

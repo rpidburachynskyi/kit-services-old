@@ -1,3 +1,26 @@
-<span *ngFor="let group of groups">
-    {{ group.text }}
-</span>
+<div class="groups-container">
+    <ng-container *ngIf="fullMatchGroup">
+        <span class="full-group-match">F: {{ fullMatchGroup.text }}</span>
+        <div class="group-matches-container">
+            <span class="group-match" *ngFor="let group of groups;let index = index">
+                {{ index + 1 }}: {{ group.text }}
+            </span>
+        </div>
+    </ng-container>
+</div>
+
+
+<div class="buttons">
+    <button 
+        class="buttons-prev"
+        [disabled]="!hasPrev"
+        (click)="prev()">
+        Prev
+    </button>
+    <button 
+        class="buttons-next"
+        [disabled]="!hasNext"
+        (click)="next()">
+        Next
+    </button>
+</div>

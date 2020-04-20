@@ -1,0 +1,10 @@
+<app-kit-combobox
+    [options]="options"
+    [ngModel]="value"
+    (ngModelChange)="changeWork($event)"
+></app-kit-combobox>
+
+<button (click)="saveAs()">Save as</button>
+<button (click)="save()">Save</button>
+<button (click)="add()">Add</button>
+<button (click)="remove()">Remove</button>

@@ -3,87 +3,98 @@ import { GroupMoverService } from '../group-mover.service';
 import { CodeError } from './code-error.model';
 import { ActivatedRoute } from '@angular/router';
 import { GroupMoverExample } from 'src/app/models/services/regular-expression/examples/group-mover-example.model';
+import { CodemirrorComponent } from '@ctrl/ngx-codemirror';
+import { ResultControlerService } from '../result-controler.service';
+import { WorkControlerService } from '../work-controler.service';
 
 declare let CodeMirror: any;
 
 @Component({
-  selector: 'app-input-result-pattern',
-  templateUrl: './input-result-pattern.component.html',
-  styleUrls: ['./input-result-pattern.component.scss']
+	selector: 'app-input-result-pattern',
+	templateUrl: './input-result-pattern.component.html',
+	styleUrls: ['./input-result-pattern.component.scss']
 })
 export class InputResultPatternComponent implements OnInit {
-  @ViewChild("eachCode", { static: false }) eachCode: ElementRef;
+	@ViewChild("eachCodeCM", { static: false }) eachCodeCM: CodemirrorComponent;
+	@ViewChild("globalCodeCM", { static: false }) globalCodeCM: CodemirrorComponent;
+	@ViewChild("argumentsCM", { static: false }) argumentsCM: CodemirrorComponent;
 
-  eachFunctionErrors: CodeError[] = [];
+	get eachCodePattern(): string { return `function(match, index) {\n\t${this.workController.currentWork.eachFunctionPattern}\n}`; }
+	set eachCodePattern(pattern: string) {
+		this.workController.currentWork.eachFunctionPattern = 
+			/function\(match, index\) {\n\t(((\s*)|.*)*)\n}$/.exec(pattern)[1];
+	}
 
-  globalFunctionText: string = `// this function call with all groups
-  function (groups)) {
-  return args[0] + "it works"
-  }`;
+	get globalCodePattern(): string { return `function(matches) {\n\t${this.workController.currentWork.globalFunctionPattern}\n}`; }
+	set globalCodePattern(pattern: string) { 
+		if(!pattern.startsWith('function')) return;
+		this.workController.currentWork.globalFunctionPattern = 
+			/function\(matches\) {\n\t(((\s*)|.*)*)\n}$/.exec(pattern)[1];
+	};
 
-  argumentsText: string = "";
+	get argumentsPattern(): string { return this.workController.currentWork.argumentsPattern };
+	set argumentsPattern(pattern: string) { this.workController.currentWork.argumentsPattern = pattern; };
 
-  tabIndex: number = 0;
+	tabIndex: number = 0;
 
-  eachCodeMirror: any;
-  globalCodeMirror: any;
-  argumentsCodeMirror: any;
+	constructor(
+		private resultController: ResultControlerService,
+		private workController: WorkControlerService,
+		private activated: ActivatedRoute
+	) { }
 
-  constructor(
-    private groupMover: GroupMoverService,
-    private activated: ActivatedRoute
-    ) {
-    this.groupMover.resultEachFunctionErrors$.subscribe(errors => {
-      this.eachFunctionErrors = errors;
-    });
-  }
+	ngOnInit() {
+		setTimeout(() => {	
+			this.eachCodeCM.codeMirror.on("beforeChange", (instance, obj) => {
+				if(obj.from.line === 0 || obj.from.line === instance.lastLine()) obj.cancel();
+			});
+			this.eachCodeCM.codeMirror.markText(
+				{ line: 0, ch: 0 },
+				this.eachCodeCM.codeMirror.posFromIndex(26),
+				{ readOnly: true }
+			);
+			this.eachCodeCM.codeMirror.markText(
+				this.eachCodeCM.codeMirror.posFromIndex(26),
+				this.eachCodeCM.codeMirror.posFromIndex(28),
+				{ readOnly: true }
+			);
+			
+			this.globalCodeCM.codeMirror.on("beforeChange", (instance, obj) => {
+				if(obj.from.line === 0 || obj.from.line === instance.lastLine()) obj.cancel();
+			});
+			this.globalCodeCM.codeMirror.markText(
+				this.globalCodeCM.codeMirror.posFromIndex(0),
+				this.globalCodeCM.codeMirror.posFromIndex(21),
+				{ readOnly: true }
+			);
+				
+			this.globalCodeCM.codeMirror.markText(
+				this.globalCodeCM.codeMirror.posFromIndex(21),
+				this.globalCodeCM.codeMirror.posFromIndex(23),
+				{ readOnly: true }
+			);
+		}, 1000);
+	}
 
-  ngOnInit() {
-    this.eachCodeMirror = CodeMirror(document.getElementById('inputEachFunction'), {
-      lineNumbers: true,
-      mode: { name: "javascript", json: true },
-      value: this.groupMover.example.resultEach
-    });
-    this.globalCodeMirror = CodeMirror(document.getElementById('inputGlobalFunction'), {
-      lineNumbers: true,
-      mode: { name: "javascript", json: true },
-      value: this.groupMover.example.resultGlobal
-    });
-    this.argumentsCodeMirror = CodeMirror(document.getElementById("inputArgumentsCode"), {
-      lineNumbers: true,
-      mode: { name: "javascript", json: true },
-      value: this.groupMover.example.resultArguments
-    });
+	setEachFunctionText() {
+		this.resultController.processEach();
+	}
 
-    switch(this.groupMover.example.type) {
-      case "each": this.setEachFunctionText(); break;
-      case "global": this.setGlobalFunctionText(); break;
-      case "args": this.setArgumentsText(); break;
-    }
-  }
+	setGlobalFunctionText() {
+		this.resultController.processGlobal();
+	}
 
-  setEachFunctionText() {
-    const value = this.eachCodeMirror.getValue();
-    this.groupMover.setResultEachFunctionText(value);
-  }
+	setArgumentsText() {
+		this.resultController.processArguments();
+	}
 
-  setGlobalFunctionText() {
-    const value = this.globalCodeMirror.getValue();
-    this.groupMover.setResultGlobalFunctionText(value);
-  }
+	changeTab(index: number) {
+		this.tabIndex = index;
 
-  setArgumentsText() {
-    const value = this.argumentsCodeMirror.getValue();
-    this.groupMover.setResultArgumentsText(value);
-  }
-
-  changeTab(index: number) {
-    this.tabIndex = index;
-
-    switch(index) {
-      case 0: this.setEachFunctionText(); break;
-      case 1: this.setGlobalFunctionText(); break;
-      case 2: this.setArgumentsText(); break;
-    }
-  }
+		switch (index) {
+			case 0: this.setEachFunctionText(); break;
+			case 1: this.setGlobalFunctionText(); break;
+			case 2: this.setArgumentsText(); break;
+		}
+	}
 }

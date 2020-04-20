@@ -3,51 +3,44 @@
     <button class="tab-item" (click)="changeTab(1)">JS Global</button>
     <button class="tab-item" (click)="changeTab(2)">Arguments</button>
 </div>
-<div 
-    [ngStyle]="{'display': tabIndex === 0 ? 'flex' : 'none'}"
-    class="input-function"
-    >
-    Function with match parameter, try console.log(match) and watch console
-    <div 
-        id="inputEachFunction"
-        class="input-function" 
-        (keyup)="setEachFunctionText()"
-        ngDefaultControl>
-    </div>
-    <div class="function-errors-bar" *ngIf="eachFunctionErrors.length !== 0">
-        <span *ngFor="let error of eachFunctionErrors">
-            {{ error.text }}
-        </span>
-    </div>
-</div>
 
-<div 
-    [ngStyle]="{'display': tabIndex === 1 ? 'flex' : 'none'}"
-    class="input-function"
-    >
-    Function with match parameter, try console.log(match) and watch console
-    <div 
-        id="inputGlobalFunction"
-        class="input-function" 
-        (keyup)="setGlobalFunctionText()"
-        ngDefaultControl>
-    </div>
-    <div class="function-errors-bar" *ngIf="eachFunctionErrors.length !== 0">
-        <span *ngFor="let error of eachFunctionErrors">
-            {{ error.text }}
-        </span>
-    </div>
-</div>
 
-<div 
-    [ngStyle]="{'display': tabIndex === 2 ? 'flex' : 'none'}"
-    class="input-function"
-    >
-    %1, %2... - arguments
-    <div 
-        id="inputArgumentsCode"
-        class="input-function" 
-        (keyup)="setArgumentsText()"
-        ngDefaultControl>
-    </div>
-</div>
+<!-- why without display none? Because i have bug, my second and third blocks not visible without click -->
+
+<ngx-codemirror
+    [ngStyle]="{'display': tabIndex === 0 ? 'block' : 'none'}"
+    #eachCodeCM
+    class="text-pattern" 
+    [(ngModel)]="eachCodePattern"
+    (ngModelChange)="setEachFunctionText()"
+    [options]="{
+        lineNumber: true,
+        extraKeys: { 'Ctrl-Space': 'autocomplete' },
+        mode: { name: 'javascript', globalVars: true}
+    }"
+></ngx-codemirror>
+
+<ngx-codemirror
+    [ngStyle]="{'display': tabIndex === 1 ? 'block' : 'none'}"
+    #globalCodeCM
+    class="text-pattern" 
+    [(ngModel)]="globalCodePattern"
+    (ngModelChange)="setGlobalFunctionText()"
+    [options]="{
+        lineNumber: true,
+        extraKeys: { 'Ctrl-Space': 'autocomplete' },
+        mode: { name: 'javascript', globalVars: true}
+    }"
+></ngx-codemirror>
+
+<!-- [ngStyle]="{'display': tabIndex === 2 ? 'block' : 'none'}" -->
+<ngx-codemirror
+    *ngIf="tabIndex === 2"
+    #argumentsCM
+    class="text-pattern" 
+    [(ngModel)]="argumentsPattern"
+    (ngModelChange)="setArgumentsText()"
+    [options]="{
+        lineNumber: true
+    }"
+></ngx-codemirror>

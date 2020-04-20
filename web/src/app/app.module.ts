@@ -11,7 +11,6 @@ import { GroupsViewerComponent } from './regular-expression/group-mover/groups-v
 import { InputPatternsComponent } from './regular-expression/group-mover/input-patterns/input-patterns.component';
 import { InputResultPatternComponent } from './regular-expression/group-mover/input-result-pattern/input-result-pattern.component';
 import { ResultViewerComponent } from './regular-expression/group-mover/result-viewer/result-viewer.component';
-import { CustominputComponent } from './custom-components/custominput/custominput.component';
 import { RegularExpressionModule } from './regular-expression/regular-expression.module';
 import { TextsComponent } from './texts/texts.component';
 import { JsTextComponent } from './texts/js-text/js-text.component';
@@ -22,6 +21,13 @@ import { CodesComponent } from './codes/codes.component';
 import { MinimizerComponent } from './codes/minimizer/minimizer.component';
 import { CodesModule } from './codes/codes.module';
 import { HomeComponent } from './home/home.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { AngularSplitModule } from 'angular-split';
+import { KitComboboxComponent } from 'src/layout/kit-combobox/kit-combobox.component';
+import { HeaderComponent } from 'src/header/header.component';
+import { WorkControlerComponent } from './regular-expression/group-mover/work-controler/work-controler.component';
+import { GroupMoverService } from './regular-expression/group-mover/group-mover.service';
+
 
 @NgModule({
   declarations: [
@@ -32,13 +38,15 @@ import { HomeComponent } from './home/home.component';
     InputPatternsComponent,
     InputResultPatternComponent,
     ResultViewerComponent,
-    CustominputComponent,
     TextsComponent,
     JsTextComponent,
     DesignCleanComponent,
     CodesComponent,
     MinimizerComponent,
-    HomeComponent
+    HomeComponent,
+    KitComboboxComponent,
+    HeaderComponent,
+    WorkControlerComponent
   ],
   imports: [
     BrowserModule,
@@ -47,10 +55,13 @@ import { HomeComponent } from './home/home.component';
     RegularExpressionModule,
     TextsRoutingModule,
     CodesModule,
-    HttpClientModule
+    HttpClientModule,
+    CodemirrorModule,
+    AngularSplitModule.forRoot(),
   ],
   providers: [
-    JsTestService
+    GroupMoverService,
+    JsTestService,
   ],
   bootstrap: [AppComponent]
 })

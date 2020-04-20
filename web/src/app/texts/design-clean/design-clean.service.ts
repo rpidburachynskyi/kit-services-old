@@ -34,7 +34,6 @@ export class DesignCleanService {
 		result = this._cleanSpaces(result);
 		result = this._setSpaces(result);
 
-		console.log(result);
 		this.resultText$.next(result);
 	}
 

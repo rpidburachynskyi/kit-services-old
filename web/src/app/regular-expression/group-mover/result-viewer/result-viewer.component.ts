@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupMoverService } from '../group-mover.service';
+import { ResultControlerService } from '../result-controler.service';
 
 @Component({
   selector: 'app-result-viewer',
@@ -10,8 +11,8 @@ export class ResultViewerComponent {
 
   result: string;
   
-  constructor(private groupMover: GroupMoverService) {
-    groupMover.result$.subscribe(result => {
+  constructor(private resultController: ResultControlerService) {
+    this.resultController.result$.subscribe(result => {
       this.result = result;
     });
   }
