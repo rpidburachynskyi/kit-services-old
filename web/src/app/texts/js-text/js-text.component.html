@@ -1,17 +1,24 @@
-<div 
-    id="JSText-inputText" 
-    class="input-text"
-    (keyup)="setInputText()">
-    
-</div>
+<ngx-codemirror
+    #inputCM
+    class="input-text" 
+    [(ngModel)]="inputText"
+    (ngModelChange)="proccess()"
+></ngx-codemirror>
 
-<div 
-    id="JSText-functionText"
-    class="function-text"
-    (keyup)="setFunctionText()">
-    
-</div>
+<ngx-codemirror
+    #functionCM
+    class="function-text" 
+    [(ngModel)]="functionText"
+    (ngModelChange)="proccess()"
+    [options]="{
+        lineNumber: true,
+        extraKeys: { 'Ctrl-Space': 'autocomplete' },
+        mode: { name: 'javascript', globalVars: true}
+    }"
+></ngx-codemirror>
 
-<div id="JSText-outputText" class="output-text">
-    
-</div>
+<ngx-codemirror
+    #outputCM
+    class="output-text" 
+    [ngModel]="outputText"
+></ngx-codemirror>

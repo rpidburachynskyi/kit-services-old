@@ -1,5 +1,26 @@
 @import "../styles/colors.scss";
 
 :host {
+    padding: 10px;
     background-color: $success-400;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.header {
+    &-icon {
+        display: flex;
+
+        cursor: pointer;
+
+        & > img {
+            max-height: 100%;
+        }
+    }
+
+    &-user-icon {
+        position: relative;
+        display: flex;
+    }
 }

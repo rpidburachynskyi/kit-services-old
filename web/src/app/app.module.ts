@@ -23,45 +23,48 @@ import { CodesModule } from './codes/codes.module';
 import { HomeComponent } from './home/home.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { AngularSplitModule } from 'angular-split';
-import { KitComboboxComponent } from 'src/layout/kit-combobox/kit-combobox.component';
 import { HeaderComponent } from 'src/header/header.component';
 import { WorkControlerComponent } from './regular-expression/group-mover/work-controler/work-controler.component';
 import { GroupMoverService } from './regular-expression/group-mover/group-mover.service';
+import { TextsModule } from './texts/texts.module';
+import { UserIconComponent } from 'src/layout/user-icon/user-icon.component';
+import { UserPanelComponent } from '../header/user-panel/user-panel.component';
+import { GraphQLModule } from './graphql.module';
+import { LoginComponent } from './login/login.component';
+import { KitModule } from 'src/layout/kit.module';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegularExpressionComponent,
-    GroupMoverComponent,
-    GroupsViewerComponent,
-    InputPatternsComponent,
-    InputResultPatternComponent,
-    ResultViewerComponent,
-    TextsComponent,
-    JsTextComponent,
     DesignCleanComponent,
     CodesComponent,
     MinimizerComponent,
     HomeComponent,
-    KitComboboxComponent,
     HeaderComponent,
-    WorkControlerComponent
+    UserIconComponent,
+    UserPanelComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RegularExpressionModule,
-    TextsRoutingModule,
     CodesModule,
     HttpClientModule,
-    CodemirrorModule,
     AngularSplitModule.forRoot(),
+    CodemirrorModule,
+
+    RegularExpressionModule,
+    TextsModule,
+    GraphQLModule,
+
+    KitModule
   ],
   providers: [
-    GroupMoverService,
-    JsTestService,
+    GroupMoverService
   ],
   bootstrap: [AppComponent]
 })

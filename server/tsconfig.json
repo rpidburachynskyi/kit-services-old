@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "target": "es2017",
+        "outDir": "./dist",
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/graphql/type-defs.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+    "moduleResolution": "node"
+}

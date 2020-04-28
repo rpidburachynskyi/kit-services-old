@@ -6,31 +6,19 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class JsTestService {
 
-  inputText: string;
-  functionText: string;
+  inputText: string = "My custom text";
+  functionText: string = "return text";
   outputText$: BehaviorSubject<string>;
 
   constructor() {
     this.outputText$ = new BehaviorSubject<string>("");
-  }
-
-  setInputText(text: string) {
-    this.inputText = text;
 
     this.proccessText();
   }
 
-  setFunctionText(text: string) {
-    this.functionText = text;
-
-    this.proccessText();
-  }
-
-  proccessText() {
-    if(!this.inputText) return;
-    if(!this.functionText) return;
-
-    const f = new Function("text", `return (${this.functionText})(text)`);
+  proccessText = () => {
+    console.log(this.inputText, this.functionText);
+    const f = new Function("text", `${this.functionText}`);
     const result = f(this.inputText);
     this.outputText$.next(typeof result === 'string' ? result : "" + result);
   }

@@ -1,56 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { JsTestService } from './js-test.service';
-
-declare let CodeMirror: any;
-declare let Split: any;
+import { CodemirrorComponent } from '@ctrl/ngx-codemirror';
 
 @Component({
-  selector: 'app-js-text',
-  templateUrl: './js-text.component.html',
-  styleUrls: ['./js-text.component.scss']
+	selector: 'app-js-text',
+	templateUrl: './js-text.component.html',
+	styleUrls: ['./js-text.component.scss']
 })
 export class JsTextComponent implements OnInit {
 
-  inputText: any;
-  outputText: any;
+	@ViewChild("inputCM", { static: true }) inputCM: CodemirrorComponent;
+	@ViewChild("functionCM", { static: true }) functionCM: CodemirrorComponent;
+	@ViewChild("outputCM", { static: true }) outputCM: CodemirrorComponent;
 
-  functionText: any;
+	get inputText(): string { return this.jsTest.inputText; }
+	set inputText(text: string) { this.jsTest.inputText = text; }
 
-  constructor(private jsTest: JsTestService) {
-  }
+	get outputText(): string { return this.jsTest.outputText$.getValue(); };
 
-  ngOnInit() {
-    this.inputText = CodeMirror(document.getElementById("JSText-inputText"), {
-      lineNumbers: true,
-      mode: { name: "javascript", json: true },
-      value: "Text that gets into the function",
-    });
+	get functionText(): string { return `function (text) {\n\t${this.jsTest.functionText}\n}`; }
+	set functionText(text: string) { 
+		this.jsTest.functionText = /function \(text\) {\n\t(((\s*)|.*)*)\n}$/.exec(text)[1]; 
+	}
 
-    this.outputText = CodeMirror(document.getElementById("JSText-outputText"), {
-      lineNumbers: true,
-      mode: { name: "javascript", json: true }
-    });
+	constructor(private jsTest: JsTestService) { }
 
-    this.functionText = CodeMirror(document.getElementById("JSText-functionText"), {
-      lineNumbers: true,
-      mode: { name: "javascript", json: true },
-      value: "function (text) {\n\treturn text.split(' ').join(' - ');\n}"
-    });
+	ngOnInit(): void {
+		setTimeout(() => {
+			this.functionCM.codeMirror.on("beforeChange", (instance, changeObj) => {
+				if(changeObj.from.line === 0 || changeObj.from.line === instance.lineCount() - 1) 
+					changeObj.cancel();
+			});
+		}, 0);
+	}
 
-    this.jsTest.outputText$.subscribe(output => {
-      this.outputText.setValue(output);
-    });
-
-    Split([".input-text", ".function-text", ".output-text"], { sizes: [20, 60, 20], direction: "vertical" });
-    this.setInputText();
-    this.setFunctionText();
-  }
-
-  setInputText() {
-    this.jsTest.setInputText(this.inputText.getValue());
-  }
-
-  setFunctionText() {
-    this.jsTest.setFunctionText(this.functionText.getValue());
-  }
+	proccess = this.jsTest.proccessText;
 }

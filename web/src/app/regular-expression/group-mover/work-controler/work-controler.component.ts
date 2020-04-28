@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { iKitComboboxOption } from 'src/layout/models/iKitComboboxOption.model';
 import { WorkControlerService } from '../work-controler.service';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 
 @Component({
   selector: 'app-work-controler',
@@ -13,8 +15,23 @@ export class WorkControlerComponent {
   get options(): iKitComboboxOption[] { return this.workController.works.map(({ id, name }) => ({ value: id, text: name })) }
 
   constructor(
-    private workController: WorkControlerService
-  ) { }
+    private workController: WorkControlerService,
+    private apollo: Apollo
+  ) {
+    this.apollo
+      .watchQuery({
+        query: gql`
+          {
+            books {
+              title
+            }
+          }
+        `,
+      })
+      .valueChanges.subscribe(result => {
+        console.log(result);
+      });
+  }
 
   changeWork(value: string) {
     this.workController.setWork(value);
@@ -23,7 +40,7 @@ export class WorkControlerComponent {
   add() {
     const name = prompt("Name?", "");
 
-    if(!name) {
+    if (!name) {
       alert("ERROR");
       return;
     }
@@ -38,7 +55,7 @@ export class WorkControlerComponent {
   saveAs() {
     const name = prompt("Name?", "");
 
-    if(!name) {
+    if (!name) {
       alert("ERROR");
       return;
     }

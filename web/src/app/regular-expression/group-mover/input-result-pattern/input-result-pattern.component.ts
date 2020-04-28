@@ -1,8 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { GroupMoverService } from '../group-mover.service';
-import { CodeError } from './code-error.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GroupMoverExample } from 'src/app/models/services/regular-expression/examples/group-mover-example.model';
 import { CodemirrorComponent } from '@ctrl/ngx-codemirror';
 import { ResultControlerService } from '../result-controler.service';
 import { WorkControlerService } from '../work-controler.service';

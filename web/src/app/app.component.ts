@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'kit-services';
+
+  constructor(
+    private apollo: Apollo
+  ) {
+    this.apollo.watchQuery({
+      query: gql`
+        query {
+          currentUser {
+            id
+            email
+          }
+        }`
+    }).valueChanges.subscribe((result) => {
+      console.log(result);
+    })
+  }
 }
