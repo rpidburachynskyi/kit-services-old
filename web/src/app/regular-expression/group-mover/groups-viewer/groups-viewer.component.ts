@@ -22,27 +22,26 @@ export class GroupsViewerComponent {
 		this.resultController.matches$.subscribe(matches => {
 			this.matches = matches;
 			this.setGroup();
-			console.log(matches);
 		});
 	}
 
 	setGroup() {
-		if(this.matches.length === 0) return this.clear();
+		if (this.matches.length === 0) return this.clear();
 
 		this.groups = []
 		if (this.matches.length <= this.groupIndex)
 			this.groupIndex = this.matches.length - 1;
-		else if(this.groupIndex === -1) this.groupIndex = 0;
+		else if (this.groupIndex === -1) this.groupIndex = 0;
 
-		if(this.groupIndex === -1) return;
+		if (this.groupIndex === -1) return;
 
 		const match = this.matches[this.groupIndex];
 
-		if(!match) return;
+		if (!match) return;
 
 
 		this.fullMatchGroup = new Group(0, match[0]);
-		for(let i = 1; i < match.length; i++) {
+		for (let i = 1; i < match.length; i++) {
 			this.groups.push(new Group(i, match[i]));
 		}
 	}

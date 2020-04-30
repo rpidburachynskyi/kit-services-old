@@ -13,13 +13,6 @@ const sessionSchema = new Schema({
     }
 });
 
-sessionSchema.pre("save", async function (next) {
-    if (this.id !== -2) return next();
-
-    this.id = await sessionModel.countDocuments();
-    next();
-});
-
 const sessionModel = model("Sessions", sessionSchema);
 
 export const createSession = (userId) => {

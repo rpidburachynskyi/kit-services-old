@@ -12,6 +12,6 @@ const server = new ApolloServer({
     }
 });
 
-export const connectApollo = (app, path) => {
-    server.applyMiddleware({ app, path });
+export const connectApollo = (app, path, cors) => {
+    server.applyMiddleware({ app, path, cors });
 }

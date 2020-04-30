@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { iKitComboboxOption } from 'src/layout/models/iKitComboboxOption.model';
-import { WorkControlerService } from '../work-controler.service';
+import { WorkControlerService, iWorkExtend } from '../work-controler.service';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+
+import { iWork } from '../work-controler.service';
 
 @Component({
   selector: 'app-work-controler',
@@ -12,25 +14,15 @@ import gql from 'graphql-tag';
 export class WorkControlerComponent {
 
   get value(): string { return this.workController.currentWork.id; }
-  get options(): iKitComboboxOption[] { return this.workController.works.map(({ id, name }) => ({ value: id, text: name })) }
+  get options(): iKitComboboxOption[] { return this.workController.works.map(({ id, name }) => ({ value: id.toString(), text: name })) }
+
+  get currentWork(): iWorkExtend { return this.workController.currentWork; };
 
   constructor(
     private workController: WorkControlerService,
     private apollo: Apollo
   ) {
-    this.apollo
-      .watchQuery({
-        query: gql`
-          {
-            books {
-              title
-            }
-          }
-        `,
-      })
-      .valueChanges.subscribe(result => {
-        console.log(result);
-      });
+
   }
 
   changeWork(value: string) {
@@ -46,20 +38,19 @@ export class WorkControlerComponent {
     }
 
     this.workController.add(name);
-  };
+  }
 
-  remove = () => this.workController.removeCurrent();
+  saveCurrentToLocal() {
+    this.workController.add(name);
+  }
 
-  save = this.workController.saveCurrent;
+  saveCurrentToGlobal = this.workController.sa
 
-  saveAs() {
-    const name = prompt("Name?", "");
+  removeLocal() {
 
-    if (!name) {
-      alert("ERROR");
-      return;
-    }
+  }
 
-    this.workController.saveCurrentAs(name);
+  removeGlobal() {
+
   }
 }

@@ -1,13 +1,13 @@
 :host {
-    width: 100px;
-    height: 100px;
-
     position: absolute;
 
     top: calc(100% + 5px);
     right: 0;
 
-    background-color: white;
+    display: flex;
+    flex-direction: column;
 
-    border-radius: 10px;
+    background-color: gray;
+
+    border-radius: 5px;
 }

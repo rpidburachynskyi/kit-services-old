@@ -1,3 +1,5 @@
-<pre>
-{{ user | json }}
-</pre>
+<ng-container *ngIf="user;">
+    <span>{{ user.email }}</span>
+    <kit-button routerLink="/profile" value="Profile"></kit-button>
+    <kit-button value="Logout"></kit-button>
+</ng-container>
