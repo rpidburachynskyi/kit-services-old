@@ -7,19 +7,16 @@ import gql from 'graphql-tag';
 
 export interface iWork {
 	id: number,
-	localId?: number,
-	globalId?: number,
 	name: string,
 	regExpPattern: string,
-	textPattern,
-	eachFunctionPattern,
-	globalFunctionPattern,
-	argumentsPattern
+	textPattern: string,
+	eachFunction: string,
+	globalFunction: string,
+	argumentsPattern: string
 };
 
 export interface iWorkExtend extends iWork {
-	hasInLocal: Boolean,
-	hasInGlobal: Boolean
+	savedType: 'unsaved' | 'local' | 'global';
 }
 
 @Injectable({
@@ -27,40 +24,47 @@ export interface iWorkExtend extends iWork {
 })
 export class WorkControlerService {
 
+	get works(): iWork[] { return [...this.unSavedWorks, ...this.localWorks, ...this.globalWorks]; }
+
 	private _currentWork$: BehaviorSubject<iWork>;
 
 	resultController: ResultControlerService;
 
 	currentWorkId: number = -1;
 
-	works: iWork[] = [
+	unSavedWorks: iWork[] = [
 		{
 			id: -1,
 			name: "Custom",
 			regExpPattern: "",
 			textPattern: "",
-			eachFunctionPattern: "",
-			globalFunctionPattern: "",
+			eachFunction: "",
+			globalFunction: "",
 			argumentsPattern: ""
 		}
 	]
 
-	get currentWork(): iWorkExtend {
+	localWorks: iWork[] = [];
+	globalWorks: iWork[] = [];
+
+	get currentWorkExtend(): iWorkExtend {
 		const work: iWork = this.currentWork$.getValue();
 		return {
 			...work,
-			hasInGlobal: work.globalId !== undefined,
-			hasInLocal: work.localId !== undefined
+			savedType: this.unSavedWorks.find(w => w === work) ? 'unsaved' : this.globalWorks.find(w => w === work) ? 'global' : 'local'
 		}
 	}
+
+	get currentWork(): iWork { return this.currentWork$.getValue(); }
+
 	get currentWork$(): BehaviorSubject<iWork> { return this._currentWork$; }
 
 	constructor(
 		private apollo: Apollo
 	) {
-		this._currentWork$ = new BehaviorSubject<iWork>(this.works.find(w => w.id === this.currentWorkId));
+		this._currentWork$ = new BehaviorSubject<iWork>(this.unSavedWorks.find(w => w.id === this.currentWorkId));
 
-		//this.loadWorksFromLocal();
+		this.loadWorksFromLocal();
 		this.loadWorksFromGlobal();
 	}
 
@@ -68,9 +72,8 @@ export class WorkControlerService {
 		for (let i = 0; i < localStorage.length; i++) {
 			const key = localStorage.key(i);
 			if (key.startsWith("WORKS")) {
-				// const id = /WORKS_(\d+)/.exec(key).groups[1];
 				const work: iWork = JSON.parse(localStorage.getItem(key));
-				this.works.push(work);
+				this.localWorks.push(work);
 			}
 		}
 	}
@@ -79,66 +82,140 @@ export class WorkControlerService {
 		this.apollo.watchQuery({
 			query: getGroupMoversQuery,
 		}).valueChanges.subscribe(({ data: { currentUser: { groupMovers } } }: any) => {
-			let works: iWork[] = this.works.filter(w => w.globalId === undefined);
-
-			this.works = works.map((w, index) => ({ ...w, id: index }));
+			this.globalWorks = groupMovers;
+			console.log(this.globalWorks);
 		});
 	}
 
 	setWork(id: number) {
-		const workIndex = this.works.findIndex(w => w.id === id);
-
+		const workIndex = this.works.findIndex(w => w.id === +id);
 		if (workIndex === -1) throw new Error("Unknmown identifier");
 
-		this.currentWork$.next(this.works.find(w => w.id === this.currentWorkId));
+		this.currentWork$.next(this.works[workIndex]);
+
+		this.resultController.processMatches();
 	}
 
-	add = (name: string = "",
+	add = (name: string,
 		regExpPattern: string = "",
 		textPattern: string = "",
-		eachFunctionPattern: string = "",
-		globalFunctionPattern: string = "",
+		eachFunction: string = "",
+		globalFunction: string = "",
 		argumentsPattern: string = ""): iWork => {
-		const id = this.works.length;
-		const work: iWork = { id, name, regExpPattern, argumentsPattern, eachFunctionPattern, globalFunctionPattern, textPattern };
+		const id = this.unSavedWorks.length;
+		const work: iWork = { id, name, regExpPattern, argumentsPattern, eachFunction, globalFunction, textPattern };
 
-		this.works.push(work);
+		this.unSavedWorks.push(work);
 
 		this._currentWork$.next(work);
 
 		return work;
 	}
 
-	saveCurrentToLocal = (work: iWork) => {
-		localStorage.setItem(`WORKS_${work.id}`, JSON.stringify(work));
+	save = () => {
+		switch (this.currentWorkExtend.savedType) {
+			case "global": {
+				const { id, regExpPattern, textPattern, eachFunction, globalFunction, argumentsPattern }: iWork = this.currentWork;
+				this.apollo.mutate({
+					mutation: saveMutation,
+					variables: {
+						id,
+						regExpPattern,
+						eachFunction,
+						textPattern,
+						globalFunction,
+						argumentsPattern
+					}
+				}).subscribe(o => {
+					alert("SAVED!");
+					console.log(o);
+				});
+				break;
+			}
+			case "local": {
+				localStorage.setItem(`WORKS_${this.currentWork.id}`, JSON.stringify(this.currentWork));
+			}
+			default: {
+				throw new Error("Unknown saved type");
+			}
+		}
 	}
 
-	saveCurrentToGlobal = ({ regExpPattern, eachFunctionPattern, globalFunctionPattern, argumentsPattern }: iWork) => {
+	saveCurrentToLocal = () => {
+
+		let id = 0;
+
+		while (localStorage.getItem(`WORKS_${id}`)) {
+			id++;
+		}
+		const work = this.currentWork;
+
+		this.unSavedWorks = this.unSavedWorks.filter(w => w.id !== this.currentWork.id);
+
+		work.id = id;
+
+		localStorage.setItem(`WORKS_${id}`, JSON.stringify(this.currentWork));
+		this.localWorks.push(work);
+		alert("SAVED!");
+	}
+
+	saveCurrentToGlobal = () => {
+		const work: iWork = this.currentWork;
+		const { name, regExpPattern, textPattern, eachFunction, globalFunction, argumentsPattern }: iWork = work;
 		this.apollo.mutate({
-			mutation: saveMutation,
+			mutation: saveNewMutation,
 			variables: {
+				name,
 				regExpPattern,
-				eachFunction: eachFunctionPattern,
-				globalFunction: globalFunctionPattern,
-				argumentsPattern: argumentsPattern
+				eachFunction,
+				textPattern,
+				globalFunction,
+				argumentsPattern
 			}
-		}).subscribe(o => {
-			console.log(o);
+		}).subscribe(result => {
+			const { saveGroupMover: { id } }: any = result.data;
+			alert("SAVED!");
+			this.unSavedWorks = this.unSavedWorks.filter(w => w.id !== work.id);
+			work.id = id;
+			this.globalWorks.push(work);
 		});
 	}
 
-	removeFromLocal = (id: number) => {
+	remove = () => {
+		switch (this.currentWorkExtend.savedType) {
+			case 'global': {
+				const { id }: iWork = this.currentWork;
+				this.apollo.mutate({
+					mutation: removeMutation,
+					variables: {
+						id
+					}
+				}).subscribe(o => {
+					this.globalWorks = this.globalWorks.filter(w => w.id !== id);
+					this.setWork(-1);
 
-		if (this.currentWork.id === id) {
-			this._currentWork$.next(this.works[0]);
+					alert("REMOVED!");
+				});
+				break;
+			}
+			case 'local': {
+				localStorage.removeItem(`WORKS_${this.currentWork.id}`);
+				this.localWorks = this.localWorks.filter(w => w.id !== this.currentWork.id);
+				this.setWork(-1);
+
+				alert("REMOVED!");
+				break;
+			}
+			case 'unsaved': {
+				if (this.currentWork.id === -1) return alert("Error, delete custom not provide");
+
+				this.unSavedWorks = this.unSavedWorks.filter(w => w.id !== this.currentWork.id);
+				this.setWork(-1);
+
+				alert("REMOVED!");
+				break;
+			}
 		}
-
-		this.works = this.works.filter(w => w.id !== id);
-		localStorage.removeItem(`WORKS_${id}`);
-	}
-
-	removeFromGlobal = (id: number) => {
-
 	}
 }
 
@@ -146,6 +223,7 @@ const saveNewMutation = gql`
 mutation saveGroupMover(
 	$name: String!
 	$regExpPattern: String!
+	$textPattern: String!
 	$eachFunction: String!
 	$globalFunction: String!
 	$argumentsPattern: String!
@@ -153,7 +231,7 @@ mutation saveGroupMover(
 	saveGroupMover(
 	  name: $name
 	  regExpPattern: $regExpPattern
-	  textPattern: ""
+	  textPattern: $textPattern
 	  eachFunction: $eachFunction
 	  globalFunction: $globalFunction
 	  argumentsPattern: $argumentsPattern
@@ -161,6 +239,9 @@ mutation saveGroupMover(
 	  id
 	  regExpPattern
 	  textPattern
+	  eachFunction
+	  globalFunction
+	  argumentsPattern
 	}
   }
   
@@ -168,15 +249,17 @@ mutation saveGroupMover(
 
 const saveMutation = gql`
 mutation saveGroupMover(
+	$id: ID!
 	$regExpPattern: String!
 	$eachFunction: String!
+	$textPattern: String!
 	$globalFunction: String!
 	$argumentsPattern: String!
   ) {
 	saveGroupMover(
-	  id: 0
+	  id: $id
 	  regExpPattern: $regExpPattern
-	  textPattern: ""
+	  textPattern: $textPattern
 	  eachFunction: $eachFunction
 	  globalFunction: $globalFunction
 	  argumentsPattern: $argumentsPattern
@@ -184,10 +267,21 @@ mutation saveGroupMover(
 	  id
 	  regExpPattern
 	  textPattern
+	  eachFunction
+	  globalFunction
+	  argumentsPattern
 	}
   }
   
   `;
+
+const removeMutation = gql`
+mutation removeGroupMover(
+	$id: ID!
+) {
+	removeGroupMover(id: $id)
+}
+`;
 
 const getGroupMoversQuery = gql`
 query {

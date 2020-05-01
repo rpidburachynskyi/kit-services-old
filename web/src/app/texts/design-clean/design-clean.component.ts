@@ -10,7 +10,7 @@ declare let CodeMirror: any;
 })
 export class DesignCleanComponent implements OnInit {
 
-  hasOutput: boolean = false;
+  hasOutput: Boolean = false;
   inputOutputIndex: number = 0;
   inputText: any;
   lastInputText: string;
@@ -18,7 +18,7 @@ export class DesignCleanComponent implements OnInit {
 
   constructor(private designClean: DesignCleanService) {
     this.designClean.resultText$.subscribe(result => {
-      if(this.inputText) {
+      if (this.inputText) {
         this.hasOutput = true;
         this.lastInputText = this.inputText.getValue();
         this.inputText.setValue(result);

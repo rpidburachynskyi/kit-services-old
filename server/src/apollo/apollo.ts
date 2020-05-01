@@ -5,9 +5,9 @@ import { resolvers } from "./../graphql/resolvers";
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req: { user } }) => {
+    context: ({ req, res }) => {
         return {
-            user
+            req, res, user: req.user
         }
     }
 });

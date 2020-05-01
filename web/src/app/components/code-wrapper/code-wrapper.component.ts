@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CodeWrapperComponent implements OnInit {
 
   @Input("code") code: string = "";
-  @Input("readOnly") readOnly: boolean = false;
+  @Input("readOnly") readOnly: Boolean = false;
 
   constructor() { }
 

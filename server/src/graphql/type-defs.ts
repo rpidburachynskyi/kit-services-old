@@ -9,7 +9,7 @@ export const typeDefs = gql`
   }
 
   type GroupMover {
-    id: ID!
+    id: Int!
     name: String!
     regExpPattern: String!
     textPattern: String!
@@ -24,6 +24,11 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    saveGroupMover(id: ID, regExpPattern: String! textPattern: String!, eachFunction: String!, globalFunction: String!, argumentsPattern: String!): GroupMover
+    saveGroupMover(id: ID, name: String, regExpPattern: String! textPattern: String!, eachFunction: String!, globalFunction: String!, argumentsPattern: String!): GroupMover
+    removeGroupMover(id: ID!): Boolean,
+
+    login(email: String!, password: String!): User
+    register(email: String!, password: String!): User
+    logout: Boolean
   }
 `;

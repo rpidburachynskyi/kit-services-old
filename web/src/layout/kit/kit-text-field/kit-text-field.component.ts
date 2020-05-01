@@ -38,7 +38,7 @@ export class KitTextFieldComponent implements ControlValueAccessor {
   registerOnTouched(f: any) {
     this.onTouched = f;
   }
-  setDisabledState(isDisabled: boolean) {
+  setDisabledState(isDisabled: Boolean) {
     throw new Error("Method not implements");
   }
   writeValue(value: string) {

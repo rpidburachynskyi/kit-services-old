@@ -8,65 +8,84 @@ import { ResultControlerService } from '../result-controler.service';
 import { WorkControlerService } from '../work-controler.service';
 
 @Component({
-  selector: 'app-input-patterns',
-  templateUrl: './input-patterns.component.html',
-  styleUrls: ['./input-patterns.component.scss']
+	selector: 'app-input-patterns',
+	templateUrl: './input-patterns.component.html',
+	styleUrls: ['./input-patterns.component.scss']
 })
 export class InputPatternsComponent implements OnInit {
-  private markers: TextMarker[] = [];
+	private _matchesLink: RegExpExecArray[] = [];
 
-  get regExpPattern(): string { return this.workController.currentWork.regExpPattern; }
-  set regExpPattern(value: string) { this.workController.currentWork.regExpPattern = value; }
+	private localMatches: RegExpExecArray[] = [];
+	private markers: TextMarker[] = [];
 
-  get textPattern(): string { return this.workController.currentWork.textPattern; }
-  set textPattern(value: string) { this.workController.currentWork.textPattern = value; }
-  
-  @ViewChild("textCM", { static: true }) textCM: CodemirrorComponent;
-  @ViewChild("regExpCM", { static: true }) regExpCM: CodemirrorComponent;
+	get regExpPattern(): string { return this.workController.currentWork.regExpPattern; }
+	set regExpPattern(value: string) { this.workController.currentWork.regExpPattern = value; }
+
+	get textPattern(): string { return this.workController.currentWork.textPattern; }
+	set textPattern(value: string) { this.workController.currentWork.textPattern = value; }
+
+	@ViewChild("textCM", { static: true }) textCM: CodemirrorComponent;
+	@ViewChild("regExpCM", { static: true }) regExpCM: CodemirrorComponent;
 
 
-  constructor(
-    private resultController: ResultControlerService,
-    private workController: WorkControlerService,
-    private activated: ActivatedRoute
-  ) { }
+	constructor(
+		private resultController: ResultControlerService,
+		private workController: WorkControlerService,
+		private activated: ActivatedRoute
+	) {
+		this.resultController._isHighlighting$.subscribe(value => {
+			if (value) {
+				this.marksAll();
+			} else {
+				this.clearAll();
+			}
+		});
+	}
 
-  ngOnInit() {
-    this.setRegExpPattern();
-    this.setTextPattern();
+	ngOnInit() {
+		this.setRegExpPattern();
+		this.setTextPattern();
 
-    this.resultController.matches$.subscribe((matches) => {
+		this.resultController.matches$.subscribe((matches) => {
+			this._matchesLink = matches;
+			if (!this.textCM.codeMirror || !this.resultController.isHighlighting) return;
+			if (this.localMatches.length === 0) return this.marksAll();
+			this.marksAll();
 
-      if(!matches || !this.textCM.codeMirror) return;
+		});
+	}
 
-      this.markers.forEach(m => m.clear());
-      this.markers = [];
+	setRegExpPattern = debounce(this.resultController.processMatches, 400);
+	setTextPattern = debounce(this.resultController.processMatches, 400);
 
-      let index = 0;
+	marksAll() {
+		this.clearAll();
+		let index = 0;
 
-      const groupColors = [
-        "red",
-        "green",
-        "yellow",
-        "blue",
-        "gray"
-      ]
+		const groupColors = [
+			"red",
+			"green",
+			"yellow",
+			"blue",
+			"gray"
+		]
 
-      matches.forEach(match => {
-        match.forEach((v, i) => {
-          if(!v) return;
-            const nextIndex = this.textPattern.indexOf(v, index);
-            
-            const start = this.textCM.codeMirror.posFromIndex(nextIndex),
-              end = this.textCM.codeMirror.posFromIndex(nextIndex + v.length);
-  
-            this.markers.push(this.textCM.codeMirror.markText(start, end, { css: `background-color: ${groupColors[i]}`}));
-            index = nextIndex;
-        });
-      });
-    });
-  }
+		this._matchesLink.forEach(match => {
+			match.forEach((v, i) => {
+				if (!v) return;
+				const nextIndex = this.textPattern.indexOf(v, index);
 
-  setRegExpPattern = debounce(this.resultController.processMatches, 400);
-  setTextPattern = debounce(this.resultController.processMatches, 400);
+				const start = this.textCM.codeMirror.posFromIndex(nextIndex),
+					end = this.textCM.codeMirror.posFromIndex(nextIndex + v.length);
+
+				this.markers.push(this.textCM.codeMirror.markText(start, end, { css: `background-color: ${groupColors[i]}` }));
+				index = nextIndex + 1;
+			});
+		});
+	}
+
+	clearAll() {
+		this.markers.forEach(m => m.clear());
+		this.markers = [];
+	}
 }

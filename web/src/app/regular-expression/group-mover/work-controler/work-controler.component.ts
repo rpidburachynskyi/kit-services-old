@@ -5,6 +5,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
 import { iWork } from '../work-controler.service';
+import { ResultControlerService } from '../result-controler.service';
 
 @Component({
   selector: 'app-work-controler',
@@ -13,19 +14,29 @@ import { iWork } from '../work-controler.service';
 })
 export class WorkControlerComponent {
 
-  get value(): string { return this.workController.currentWork.id; }
+  get isMatching(): Boolean { return this.resultController.isMatching };
+  set isMatching(value: Boolean) { this.resultController.isMatching = value; };
+
+  get isProccessing(): Boolean { return this.resultController.isProccessing };
+  set isProccessing(value: Boolean) { this.resultController.isProccessing = value; };
+
+  get isHighlighting(): Boolean { return this.resultController.isHighlighting };
+  set isHighlighting(value: Boolean) { this.resultController.isHighlighting = value; };
+
+  get value(): string { return this.workController.currentWork.id.toString(); }
   get options(): iKitComboboxOption[] { return this.workController.works.map(({ id, name }) => ({ value: id.toString(), text: name })) }
 
-  get currentWork(): iWorkExtend { return this.workController.currentWork; };
+  get currentWork(): iWorkExtend { return this.workController.currentWorkExtend; };
 
   constructor(
     private workController: WorkControlerService,
+    private resultController: ResultControlerService,
     private apollo: Apollo
   ) {
 
   }
 
-  changeWork(value: string) {
+  changeWork(value: number) {
     this.workController.setWork(value);
   }
 
@@ -40,11 +51,10 @@ export class WorkControlerComponent {
     this.workController.add(name);
   }
 
-  saveCurrentToLocal() {
-    this.workController.add(name);
-  }
+  saveCurrentToGlobal = this.workController.saveCurrentToGlobal;
+  saveCurrentToLocal = this.workController.saveCurrentToLocal;
 
-  saveCurrentToGlobal = this.workController.sa
+  save = this.workController.save;
 
   removeLocal() {
 
@@ -53,4 +63,19 @@ export class WorkControlerComponent {
   removeGlobal() {
 
   }
+
+  copyToNew = () => {
+    const name = prompt("Name?", "");
+
+    if (!name) {
+      alert("ERROR");
+      return;
+    }
+
+    const { regExpPattern, textPattern, eachFunction, globalFunction, argumentsPattern }: iWork = this.currentWork;
+
+    this.workController.add(name, regExpPattern, textPattern, eachFunction, globalFunction, argumentsPattern);
+  }
+
+  remove = this.workController.remove;
 }

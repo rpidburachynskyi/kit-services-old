@@ -2,10 +2,10 @@
 
 <div class="register-container">
     <label>Email</label>
-    <kit-text-field></kit-text-field>
+    <kit-text-field [(ngModel)]="email"></kit-text-field>
     <label>Passoword</label>
-    <kit-text-field></kit-text-field>
+    <kit-text-field [(ngModel)]="password"></kit-text-field>
     <label>Again</label>
     <kit-text-field></kit-text-field>
-    <kit-button value="Register" (click)="register()"></kit-button>
+    <kit-button (click)="register()">Register</kit-button>
 </div>

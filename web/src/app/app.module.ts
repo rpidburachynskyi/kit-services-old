@@ -33,6 +33,8 @@ import { GraphQLModule } from './graphql.module';
 import { LoginComponent } from './login/login.component';
 import { KitModule } from 'src/layout/kit.module';
 import { RegisterComponent } from './register/register.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -61,7 +63,9 @@ import { RegisterComponent } from './register/register.component';
     TextsModule,
     GraphQLModule,
 
-    KitModule
+    KitModule,
+
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     GroupMoverService

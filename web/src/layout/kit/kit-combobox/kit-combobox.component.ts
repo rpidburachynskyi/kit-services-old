@@ -3,7 +3,7 @@ import { iKitComboboxOption } from '../../models/iKitComboboxOption.model';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
-  selector: 'app-kit-combobox',
+  selector: 'kit-combobox',
   templateUrl: './kit-combobox.component.html',
   styleUrls: ['./kit-combobox.component.scss'],
   providers: [
@@ -40,7 +40,7 @@ export class KitComboboxComponent implements ControlValueAccessor {
   registerOnTouched(f: any) {
     this.onTouched = f;
   }
-  setDisabledState(isDisabled: boolean) {
+  setDisabledState(isDisabled: Boolean) {
     throw new Error("Method not implements");
   }
   writeValue(value: string) {

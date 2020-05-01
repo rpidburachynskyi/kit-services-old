@@ -4,8 +4,6 @@ import { CodemirrorComponent } from '@ctrl/ngx-codemirror';
 import { ResultControlerService } from '../result-controler.service';
 import { WorkControlerService } from '../work-controler.service';
 
-declare let CodeMirror: any;
-
 @Component({
 	selector: 'app-input-result-pattern',
 	templateUrl: './input-result-pattern.component.html',
@@ -16,16 +14,18 @@ export class InputResultPatternComponent implements OnInit {
 	@ViewChild("globalCodeCM", { static: false }) globalCodeCM: CodemirrorComponent;
 	@ViewChild("argumentsCM", { static: false }) argumentsCM: CodemirrorComponent;
 
-	get eachCodePattern(): string { return `function(match, index) {\n\t${this.workController.currentWork.eachFunctionPattern}\n}`; }
+	get eachCodePattern(): string { return `function(match, index) {\n\t${this.workController.currentWork.eachFunction}\n}`; }
 	set eachCodePattern(pattern: string) {
-		this.workController.currentWork.eachFunctionPattern = 
+		this.workController.currentWork.eachFunction =
 			/function\(match, index\) {\n\t(((\s*)|.*)*)\n}$/.exec(pattern)[1];
 	}
 
-	get globalCodePattern(): string { return `function(matches) {\n\t${this.workController.currentWork.globalFunctionPattern}\n}`; }
-	set globalCodePattern(pattern: string) { 
-		if(!pattern.startsWith('function')) return;
-		this.workController.currentWork.globalFunctionPattern = 
+	get eachFunctionError(): any { return this.resultController.eachFunctionError; }
+
+	get globalCodePattern(): string { return `function(matches) {\n\t${this.workController.currentWork.globalFunction}\n}`; }
+	set globalCodePattern(pattern: string) {
+		if (!pattern.startsWith('function')) return;
+		this.workController.currentWork.globalFunction =
 			/function\(matches\) {\n\t(((\s*)|.*)*)\n}$/.exec(pattern)[1];
 	};
 
@@ -41,9 +41,10 @@ export class InputResultPatternComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		setTimeout(() => {	
+		setTimeout(() => {
 			this.eachCodeCM.codeMirror.on("beforeChange", (instance, obj) => {
-				if(obj.from.line === 0 || obj.from.line === instance.lastLine()) obj.cancel();
+				if (obj.origin === "setValue") return;
+				if (obj.from.line === 0 || obj.from.line === instance.lastLine()) obj.cancel();
 			});
 			this.eachCodeCM.codeMirror.markText(
 				{ line: 0, ch: 0 },
@@ -55,16 +56,16 @@ export class InputResultPatternComponent implements OnInit {
 				this.eachCodeCM.codeMirror.posFromIndex(28),
 				{ readOnly: true }
 			);
-			
+
 			this.globalCodeCM.codeMirror.on("beforeChange", (instance, obj) => {
-				if(obj.from.line === 0 || obj.from.line === instance.lastLine()) obj.cancel();
+				if (obj.from.line === 0 || obj.from.line === instance.lastLine()) obj.cancel();
 			});
 			this.globalCodeCM.codeMirror.markText(
 				this.globalCodeCM.codeMirror.posFromIndex(0),
 				this.globalCodeCM.codeMirror.posFromIndex(21),
 				{ readOnly: true }
 			);
-				
+
 			this.globalCodeCM.codeMirror.markText(
 				this.globalCodeCM.codeMirror.posFromIndex(21),
 				this.globalCodeCM.codeMirror.posFromIndex(23),

@@ -7,40 +7,30 @@
 
 <!-- why without display none? Because i have bug, my second and third blocks not visible without click -->
 
-<ngx-codemirror
-    [ngStyle]="{'display': tabIndex === 0 ? 'block' : 'none'}"
-    #eachCodeCM
-    class="text-pattern" 
-    [(ngModel)]="eachCodePattern"
-    (ngModelChange)="setEachFunctionText()"
-    [options]="{
+
+
+<ng-container *ngIf="tabIndex === 0">
+    <ngx-codemirror #eachCodeCM class="pattern-code" [(ngModel)]="eachCodePattern"
+        (ngModelChange)="setEachFunctionText()" [options]="{
         lineNumber: true,
         extraKeys: { 'Ctrl-Space': 'autocomplete' },
         mode: { name: 'javascript', globalVars: true}
-    }"
-></ngx-codemirror>
-
-<ngx-codemirror
-    [ngStyle]="{'display': tabIndex === 1 ? 'block' : 'none'}"
-    #globalCodeCM
-    class="text-pattern" 
-    [(ngModel)]="globalCodePattern"
-    (ngModelChange)="setGlobalFunctionText()"
-    [options]="{
+    }"></ngx-codemirror>
+    <pre *ngIf="eachFunctionError">
+        {{ eachFunctionError }}
+    </pre>
+</ng-container>
+<ng-container *ngIf="tabIndex === 1">
+    <ngx-codemirror #globalCodeCM class="pattern-code" [(ngModel)]="globalCodePattern"
+        (ngModelChange)="setGlobalFunctionText()" [options]="{
         lineNumber: true,
         extraKeys: { 'Ctrl-Space': 'autocomplete' },
         mode: { name: 'javascript', globalVars: true}
-    }"
-></ngx-codemirror>
-
-<!-- [ngStyle]="{'display': tabIndex === 2 ? 'block' : 'none'}" -->
-<ngx-codemirror
-    *ngIf="tabIndex === 2"
-    #argumentsCM
-    class="text-pattern" 
-    [(ngModel)]="argumentsPattern"
-    (ngModelChange)="setArgumentsText()"
-    [options]="{
+    }"></ngx-codemirror>
+</ng-container>
+<ng-container *ngIf="tabIndex === 2">
+    <ngx-codemirror #argumentsCM class="pattern-arguments" [(ngModel)]="argumentsPattern"
+        (ngModelChange)="setArgumentsText()" [options]="{
         lineNumber: true
-    }"
-></ngx-codemirror>
+    }"></ngx-codemirror>
+</ng-container>

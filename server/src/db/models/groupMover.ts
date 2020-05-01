@@ -56,3 +56,5 @@ export const saveGroupMover = (id: Number, regExpPattern: string, textPattern: s
 
 export const getGroupMoverById = (id: Number) => groupMoverModel.findOne({ id });
 export const getGroupMoversByUserId = (userId: Number) => groupMoverModel.find({ userId });
+
+export const removeGroupMoverById = (id: Number) => groupMoverModel.findOneAndRemove({ id });

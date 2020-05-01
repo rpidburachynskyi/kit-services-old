@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { ApiService } from 'src/app/api.service';
 
 @Component({
 	selector: 'app-user-panel',
@@ -15,21 +16,36 @@ export class UserPanelComponent implements OnInit {
 	} = null;
 
 	constructor(
-		private apollo: Apollo
+		private apollo: Apollo,
+		private api: ApiService
 	) {
 		this.apollo
 			.watchQuery({ query })
 			.valueChanges
 			.subscribe(({ data }) => {
+				const { currentUser }: any = data;
+
+				if (!currentUser) {
+					this.user = null;
+					return;
+				}
+
 				this.user = {
-					id: data['currentUser']['id'],
-					email: data['currentUser']['email']
+					id: currentUser['id'],
+					email: currentUser['email']
 				};
 				console.log(this.user);
 			})
 	}
 
 	ngOnInit() {
+	}
+
+	logout() {
+		this.apollo.mutate({
+			mutation: logoutNutation,
+			refetchQueries: [{ query: currentUserQuery }]
+		}).subscribe(console.log)
 	}
 
 }
@@ -39,5 +55,19 @@ query {
   currentUser {
     id
     email
+  }
+}`;
+
+const logoutNutation = gql`
+	mutation {
+		logout
+	}
+`;
+
+const currentUserQuery = gql`
+query {
+  currentUser {
+	id
+	email
   }
 }`;

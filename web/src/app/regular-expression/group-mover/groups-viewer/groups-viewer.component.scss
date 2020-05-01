@@ -12,32 +12,28 @@
 
 .groups-container {
     flex: 1;
-    
+
+    word-wrap: break-word;
+
     &-full {
         display: block;
     }
 
     &-others {
-
         flex: 1;
 
         display: flex;
         flex-direction: column;
 
         &-group {
-
         }
     }
 }
 
 .buttons {
-
-
     &-prev {
-
     }
 
     &-next {
-
     }
 }

@@ -19,7 +19,15 @@ export class ApiService {
     })
   }
 
-  register(email, password): Observable<object> {
+  register(email: string, password: string): Observable<object> {
     return this.post("/auth/register", { email, password });
+  }
+
+  login(email: string, password: string): Observable<object> {
+    return this.post("/auth/login", { email, password });
+  }
+
+  logout(): Observable<object> {
+    return this.post("/auth/logout");
   }
 }

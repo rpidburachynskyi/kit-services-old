@@ -1,5 +1,10 @@
-<ng-container *ngIf="user;">
+<ng-container *ngIf="!!user">
     <span>{{ user.email }}</span>
-    <kit-button routerLink="/profile" value="Profile"></kit-button>
-    <kit-button value="Logout"></kit-button>
+    <kit-button routerLink="/profile">Profile</kit-button>
+    <kit-button (click)="logout()">Logout</kit-button>
+</ng-container>
+
+<ng-container *ngIf="!user">
+    <kit-button routerLink="/login">Login</kit-button>
+    <kit-button routerLink="/register">Register</kit-button>
 </ng-container>

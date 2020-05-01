@@ -1,7 +1,7 @@
 <h1>Login</h1>
 
 <div class="login-container">
-    <kit-text-field [ngModel]="1"></kit-text-field>
-    <kit-text-field></kit-text-field>
-    <kit-button value="Enter"></kit-button>
+    <kit-text-field [(ngModel)]="email"></kit-text-field>
+    <kit-text-field [(ngModel)]="password"></kit-text-field>
+    <kit-button (click)="login()">Enter</kit-button>
 </div>

@@ -1,7 +1,18 @@
-<app-kit-combobox [options]="options" [ngModel]="value" (ngModelChange)="changeWork($event)"></app-kit-combobox>
+<kit-combobox [options]="options" [ngModel]="value" (ngModelChange)="changeWork($event)"></kit-combobox>
 
 
-<button *ngIf="!currentWork.hasInLocal;" (click)="saveCurrentToGlobal()">Save local</button>
-<button *ngIf="!currentWork.hasInGlobal;" (click)="saveCurrentToGlobal()">Save global</button>
+<button *ngIf="currentWork.savedType === 'unsaved' && currentWork.id !== -1" (click)="saveCurrentToLocal()">Save
+    local</button>
+<button *ngIf="currentWork.savedType === 'unsaved' && currentWork.id !== -1" (click)="saveCurrentToGlobal()">Save
+    global</button>
 
+<button *ngIf="currentWork.savedType !== 'unsaved'" (click)="save()">Save</button>
+
+<button (click)="copyToNew()">Copy to new</button>
+
+<button *ngIf="currentWork.id !== -1" (click)="remove()">Remove</button>
 <button (click)="add()">Add</button>
+
+<kit-toggle [(ngModel)]="isMatching"></kit-toggle>
+<kit-toggle [(ngModel)]="isProccessing" [disabled]="!isMatching"></kit-toggle>
+<kit-toggle [(ngModel)]="isHighlighting" [disabled]="!isMatching"></kit-toggle>

@@ -8,7 +8,8 @@ import { ApiService } from '../api.service';
 })
 export class RegisterComponent implements OnInit {
 
-
+  email: string = "";
+  password: string = "";
 
   constructor(
     private api: ApiService
@@ -18,7 +19,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.api.register("qwe", "qwe")
+    this.api.register(this.email, this.password)
       .subscribe(o => {
         console.log(o);
       })
