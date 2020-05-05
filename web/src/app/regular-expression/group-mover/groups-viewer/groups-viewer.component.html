@@ -1,8 +1,8 @@
-<div class="groups-container">
+<div class="groups-viewer-groups-container">
     <ng-container *ngIf="fullMatchGroup">
-        <span class="full-group-match">F: {{ fullMatchGroup.text }}</span>
-        <div class="group-matches-container">
-            <span class="group-match" *ngFor="let group of groups;let index = index">
+        <span class="groups-viewer-groups-container-full-match">F: {{ fullMatchGroup.text }}</span>
+        <div class="groups-viewer-groups-container-matches">
+            <span class="groups-viewer-group-container-matches-match" *ngFor="let group of groups;let index = index">
                 {{ index + 1 }}: {{ group.text }}
             </span>
         </div>
@@ -10,17 +10,16 @@
 </div>
 
 
-<div class="buttons">
-    <button 
-        class="buttons-prev"
-        [disabled]="!hasPrev"
-        (click)="prev()">
-        Prev
-    </button>
-    <button 
-        class="buttons-next"
-        [disabled]="!hasNext"
-        (click)="next()">
-        Next
-    </button>
+<div class="groups-viewer-buttons">
+    <kit-icon-button class="groups-viewer-buttons-next" [disabled]="!hasPrev" (click)="prev()">
+        <kit-icon iconLabel="simple-arrow" direction="left" color="white"></kit-icon>
+    </kit-icon-button>
+    <span>{{ groupIndex + 1 }}</span>
+    <kit-icon-button class="groups-viewer-buttons-next" [disabled]="!hasNext" (click)="next()">
+        <kit-icon iconLabel="simple-arrow" direction="right" color="white"></kit-icon>
+    </kit-icon-button>
+</div>
+
+<div class="groups-viewer-modal" *ngIf="matches.length === 0">
+    Type at the left
 </div>

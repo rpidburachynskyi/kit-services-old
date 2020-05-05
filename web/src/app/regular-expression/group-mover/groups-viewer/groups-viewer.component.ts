@@ -11,7 +11,7 @@ import { ResultControlerService } from '../result-controler.service';
 export class GroupsViewerComponent {
 
 	get hasPrev(): Boolean { return this.groupIndex > 0; }
-	get hasNext(): Boolean { return this.groupIndex !== this.matches.length - 1; }
+	get hasNext(): Boolean { return this.groupIndex < this.matches.length - 1; }
 
 	fullMatchGroup: Group;
 	groups: Group[];
@@ -60,5 +60,4 @@ export class GroupsViewerComponent {
 		this.groupIndex++;
 		this.setGroup();
 	}
-
 }

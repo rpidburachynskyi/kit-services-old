@@ -3,7 +3,6 @@
     flex: 1;
 
     display: grid;
-    grid-template-rows: 20px auto min-content;
 
     border: 1px solid white;
     overflow: hidden;
@@ -40,6 +39,7 @@
 .pattern {
     &-code,
     &-arguments {
+        flex: 1;
         overflow: hidden;
     }
 }

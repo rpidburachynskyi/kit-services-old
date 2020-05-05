@@ -1,49 +1,65 @@
-import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, forwardRef, ContentChildren, QueryList } from '@angular/core';
 import { iKitComboboxOption } from '../../models/iKitComboboxOption.model';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { KitComboboxOptionComponent } from './kit-combobox-option/kit-combobox-option.component';
 
 @Component({
-  selector: 'kit-combobox',
-  templateUrl: './kit-combobox.component.html',
-  styleUrls: ['./kit-combobox.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => KitComboboxComponent),
-      multi: true
-    }
-  ]
+	selector: 'kit-combobox',
+	templateUrl: './kit-combobox.component.html',
+	styleUrls: ['./kit-combobox.component.scss'],
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => KitComboboxComponent),
+			multi: true
+		}
+	]
 })
 export class KitComboboxComponent implements ControlValueAccessor {
 
-  @Input("options") options: iKitComboboxOption[];
+	@ContentChildren(KitComboboxOptionComponent) _ss: QueryList<KitComboboxOptionComponent>;
 
-  private _value: string;
 
-  public get myValue(): string { return this._value; };
+	private _value: string;
 
-  public set myValue(value: string) {
-    if (value === this._value) return;
+	public get value(): string { return this._value; };
 
-    this._value = value;
-    this.onChange(value);
-  };
+	public set value(value: string) {
+		if (value === this._value) return;
 
-  constructor() { }
+		this._value = value;
+		this.onChange(value);
+	};
 
-  onChange = (_) => { };
-  private onTouched = () => { };
+	get options(): KitComboboxOptionComponent[] { return this._ss.toArray(); }
+	get optionValue(): KitComboboxOptionComponent { return this._ss.find(c => c.value === this.value); }
 
-  registerOnChange(f: any) {
-    this.onChange = f;
-  }
-  registerOnTouched(f: any) {
-    this.onTouched = f;
-  }
-  setDisabledState(isDisabled: Boolean) {
-    throw new Error("Method not implements");
-  }
-  writeValue(value: string) {
-    this.myValue = value;
-  }
+	opened: Boolean = false;
+
+	constructor() { }
+
+	onChange = (_) => { };
+
+	private onTouched = () => { };
+
+	registerOnChange(f: any) {
+		this.onChange = f;
+	}
+	registerOnTouched(f: any) {
+		this.onTouched = f;
+	}
+	setDisabledState(isDisabled: Boolean) {
+		throw new Error("Method not implements");
+	}
+	writeValue(value: string) {
+		this.value = value;
+	}
+
+
+
+
+	selectOption(option: KitComboboxOptionComponent) {
+		this.value = option.value;
+		this.opened = false;
+	}
 }

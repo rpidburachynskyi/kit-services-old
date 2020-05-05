@@ -1,36 +1,27 @@
-<div class="tab">
-    <button class="tab-item" (click)="changeTab(0)">JS Each</button>
-    <button class="tab-item" (click)="changeTab(1)">JS Global</button>
-    <button class="tab-item" (click)="changeTab(2)">Arguments</button>
-</div>
-
-
-<!-- why without display none? Because i have bug, my second and third blocks not visible without click -->
-
-
-
-<ng-container *ngIf="tabIndex === 0">
-    <ngx-codemirror #eachCodeCM class="pattern-code" [(ngModel)]="eachCodePattern"
-        (ngModelChange)="setEachFunctionText()" [options]="{
+<kit-tabs [tabIndex]="tabIndex" (tabIndex)="changeTab($event)">
+    <kit-tab index="0" label="Each function">
+        <ngx-codemirror #eachCodeCM class="pattern-code" [(ngModel)]="eachCodePattern"
+            (ngModelChange)="setEachFunctionText()" [options]="{
+                lineNumber: true,
+                extraKeys: { 'Ctrl-Space': 'autocomplete' },
+                mode: { name: 'javascript', globalVars: true}
+            }"></ngx-codemirror>
+        <pre *ngIf="eachFunctionError">
+                {{ eachFunctionError }}
+            </pre>
+    </kit-tab>
+    <kit-tab index="1" label="Global function">
+        <ngx-codemirror #globalCodeCM class="pattern-code" [(ngModel)]="globalCodePattern"
+            (ngModelChange)="setGlobalFunctionText()" [options]="{
         lineNumber: true,
         extraKeys: { 'Ctrl-Space': 'autocomplete' },
         mode: { name: 'javascript', globalVars: true}
     }"></ngx-codemirror>
-    <pre *ngIf="eachFunctionError">
-        {{ eachFunctionError }}
-    </pre>
-</ng-container>
-<ng-container *ngIf="tabIndex === 1">
-    <ngx-codemirror #globalCodeCM class="pattern-code" [(ngModel)]="globalCodePattern"
-        (ngModelChange)="setGlobalFunctionText()" [options]="{
-        lineNumber: true,
-        extraKeys: { 'Ctrl-Space': 'autocomplete' },
-        mode: { name: 'javascript', globalVars: true}
-    }"></ngx-codemirror>
-</ng-container>
-<ng-container *ngIf="tabIndex === 2">
-    <ngx-codemirror #argumentsCM class="pattern-arguments" [(ngModel)]="argumentsPattern"
-        (ngModelChange)="setArgumentsText()" [options]="{
+    </kit-tab>
+    <kit-tab index="2" label="Arguments">
+        <ngx-codemirror #argumentsCM class="pattern-arguments" [(ngModel)]="argumentsPattern"
+            (ngModelChange)="setArgumentsText()" [options]="{
         lineNumber: true
     }"></ngx-codemirror>
-</ng-container>
+    </kit-tab>
+</kit-tabs>

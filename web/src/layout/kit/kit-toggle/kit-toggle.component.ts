@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
@@ -15,17 +15,16 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 })
 export class KitToggleComponent implements ControlValueAccessor {
 
-  private _value: Boolean;
+  private _checked: Boolean;
   private _disabled: Boolean = false;
 
   get disabled(): Boolean { return this._disabled; }
 
-  public get myValue(): Boolean { return this._value; };
+  public get checked(): Boolean { return this._checked; };
+  public set checked(value: Boolean) {
+    if (value === this._checked) return;
 
-  public set myValue(value: Boolean) {
-    if (value === this._value) return;
-
-    this._value = value;
+    this._checked = value;
     this.onChange(value);
   };
 
@@ -45,7 +44,7 @@ export class KitToggleComponent implements ControlValueAccessor {
     this._disabled = isDisabled;
   }
   writeValue(value: Boolean) {
-    this.myValue = value;
+    this.checked = value;
   }
 
 }

@@ -1,0 +1,14 @@
+@import "../../../styles/effects.scss";
+
+:host {
+    display: inline-flex;
+}
+
+.kit-button {
+    @extend %button-template;
+    flex: 1;
+
+    color: #ffec00;
+
+    box-sizing: border-box;
+}

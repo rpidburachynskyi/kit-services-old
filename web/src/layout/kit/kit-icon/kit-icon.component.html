@@ -1,0 +1,15 @@
+<ng-container [ngSwitch]="_iconLabel">
+    <ng-container *ngSwitchCase="'simple-arrow'">
+        <ng-template *ngTemplateOutlet="simpleArrow"></ng-template>
+    </ng-container>
+</ng-container>
+
+
+
+<ng-template #simpleArrow>
+    <svg class="kit-icon kit-icon-simple-arrow" type="simple-arrow"
+        [ngStyle]="{'transform': 'rotate(' + directionInDegrees('right') + 'deg)' }" xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24" [attr.fill]="_color" width="48px" height="48px">
+        <path d="M0 0h24v24H0V0z" fill="none" />
+        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" /></svg>
+</ng-template>

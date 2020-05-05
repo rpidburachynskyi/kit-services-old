@@ -1,6 +1,10 @@
-<select [ngModel]="myValue" (ngModelChange)="onChange($event)">
-    <option *ngFor="let option of options" [ngValue]="option.value">
-        {{ option.text }}
-    </option>
-</select>
-
+<div class="kit-combobox">
+    <div *ngIf="optionValue" class="kit-combobox-value" (click)="opened = !opened">
+        {{ optionValue.text }}
+    </div>
+    <div class="kit-combobox-options" *ngIf="opened">
+        <div *ngFor="let option of options" class="kit-combobox-options-option" (click)="selectOption(option)">
+            <span>{{ option.text }}</span>
+        </div>
+    </div>
+</div>

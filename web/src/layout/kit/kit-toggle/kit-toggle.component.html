@@ -1,1 +1,10 @@
-<input type="checkbox" [disabled]="disabled" name="" id="" [(ngModel)]="myValue">
+<div class="kit-toggle" (click)="checked = !checked">
+    <input type="checkbox" [disabled]="disabled" [(ngModel)]="checked">
+
+    <div class="kit-toggle-circle">
+    </div>
+
+    <span class="kit-toggle-value">
+        <ng-content></ng-content>
+    </span>
+</div>

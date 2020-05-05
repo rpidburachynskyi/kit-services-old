@@ -1,0 +1,20 @@
+<div class="kit-tabs-headers">
+    <div *ngFor="let tab of tabs;let index=index;" class="kit-tabs-headers-item" [attr.active]="index === _tabIndex"
+        (click)="changeTabIndex(index)">
+        <span>{{ tab.label }}</span>
+    </div>
+</div>
+
+<div class="kit-tabs-content">
+    <ng-container [ngSwitch]="_tabIndex">
+        <ng-content select="kit-tab[index='0']" *ngSwitchCase="0"></ng-content>
+        <ng-content select="kit-tab[index='1']" *ngSwitchCase="1"></ng-content>
+        <ng-content select="kit-tab[index='2']" *ngSwitchCase="2"></ng-content>
+        <ng-content select="kit-tab[index='3']" *ngSwitchCase="3"></ng-content>
+        <ng-content select="kit-tab[index='4']" *ngSwitchCase="4"></ng-content>
+        <ng-content select="kit-tab[index='5']" *ngSwitchCase="5"></ng-content>
+        <ng-content select="kit-tab[index='6']" *ngSwitchCase="6"></ng-content>
+        <ng-content select="kit-tab[index='7']" *ngSwitchCase="7"></ng-content>
+        <ng-content select="kit-tab[index='8']" *ngSwitchCase="8"></ng-content>
+    </ng-container>
+</div>

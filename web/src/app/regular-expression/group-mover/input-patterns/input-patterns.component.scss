@@ -1,11 +1,13 @@
 :host {
     height: 50%;
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: min-content auto;
 }
 
 .reg-exp-pattern {
+    max-height: 65px;
+
     padding: 1px;
     margin-bottom: 5px;
 
@@ -20,7 +22,7 @@
 
 .text-pattern {
     padding: 1px;
-    
+
     flex: 10;
 
     border: 1px solid white;

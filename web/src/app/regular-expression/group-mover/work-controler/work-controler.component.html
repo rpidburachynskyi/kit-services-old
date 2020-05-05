@@ -1,18 +1,21 @@
-<kit-combobox [options]="options" [ngModel]="value" (ngModelChange)="changeWork($event)"></kit-combobox>
+<kit-combobox [ngModel]="value" (ngModelChange)="changeWork($event)">
+    <kit-combobox-option *ngFor="let option of options;" [value]="option.value" [text]="option.text">
+    </kit-combobox-option>
+</kit-combobox>
 
 
-<button *ngIf="currentWork.savedType === 'unsaved' && currentWork.id !== -1" (click)="saveCurrentToLocal()">Save
-    local</button>
-<button *ngIf="currentWork.savedType === 'unsaved' && currentWork.id !== -1" (click)="saveCurrentToGlobal()">Save
-    global</button>
+<kit-button *ngIf="currentWork.savedType === 'unsaved' && currentWork.id !== -1" (click)="saveCurrentToLocal()">Save
+    local</kit-button>
+<kit-button *ngIf="currentWork.savedType === 'unsaved' && currentWork.id !== -1" (click)="saveCurrentToGlobal()">Save
+    global</kit-button>
 
-<button *ngIf="currentWork.savedType !== 'unsaved'" (click)="save()">Save</button>
+<kit-button *ngIf="currentWork.savedType !== 'unsaved'" (click)="save()">Save</kit-button>
 
-<button (click)="copyToNew()">Copy to new</button>
+<kit-button (click)="copyToNew()">Copy to new</kit-button>
 
-<button *ngIf="currentWork.id !== -1" (click)="remove()">Remove</button>
-<button (click)="add()">Add</button>
+<kit-button *ngIf="currentWork.id !== -1" (click)="remove()">Remove</kit-button>
+<kit-button (click)="add()">Add</kit-button>
 
-<kit-toggle [(ngModel)]="isMatching"></kit-toggle>
-<kit-toggle [(ngModel)]="isProccessing" [disabled]="!isMatching"></kit-toggle>
-<kit-toggle [(ngModel)]="isHighlighting" [disabled]="!isMatching"></kit-toggle>
+<kit-toggle [(ngModel)]="isMatching">Match</kit-toggle>
+<kit-toggle [(ngModel)]="isProccessing" [disabled]="!isMatching">Process</kit-toggle>
+<kit-toggle [(ngModel)]="isHighlighting" [disabled]="!isMatching">Hightlight</kit-toggle>
