@@ -38,31 +38,31 @@ export class DesignCleanService {
 	}
 
 	private _cleanSpaces(text: string) {
-        return text.replace(/\n+\s+/g, "");
-    }
+		return text.replace(/\n+\s+/g, "");
+	}
 
-    private _setSpaces(text: string) {
-        return this._setSpacesRecursive(text);
-    }
+	private _setSpaces(text: string) {
+		return this._setSpacesRecursive(text);
+	}
 
-    _setSpacesRecursive(text: string, level: number = 0) : string {
-        if(text.indexOf(">") === -1 || text.lastIndexOf("<") === -1) 
-            return this._formatSubstring(text, level);
-        let temp = this._setSpacesRecursive(text.substring(text.indexOf(">") + 1, text.lastIndexOf("<")), level + 1);
-        let result = text.slice(0, text.indexOf(">") + 1) + temp + text.slice(text.lastIndexOf("<"));
-        result = this._formatSubstring(result, level);
-        return result;
-    }
+	_setSpacesRecursive(text: string, level: number = 0): string {
+		if (text.indexOf(">") === -1 || text.lastIndexOf("<") === -1)
+			return this._formatSubstring(text, level);
+		let temp = this._setSpacesRecursive(text.substring(text.indexOf(">") + 1, text.lastIndexOf("<")), level + 1);
+		let result = text.slice(0, text.indexOf(">") + 1) + temp + text.slice(text.lastIndexOf("<"));
+		result = this._formatSubstring(result, level);
+		return result;
+	}
 
-    _formatSubstring(text: string, tabsCount: number) {
-        let result = text;
-        const fillTabs = (t: number) => { let r = ""; while (t--) r += '\t'; return r; }
-        const insert = (t: string, i: number, s: string) => t.slice(0, i) + s + t.slice(i);
-        
-        result = insert(result, 0, `\n${fillTabs(tabsCount)}`);
-        if(tabsCount !== 0)
-        result = insert(result, result.length, `\n${fillTabs(tabsCount - 1)}`);
-        
-        return result;
-    }
+	_formatSubstring(text: string, tabsCount: number) {
+		let result = text;
+		const fillTabs = (t: number) => { let r = ""; while (t--) r += '\t'; return r; }
+		const insert = (t: string, i: number, s: string) => t.slice(0, i) + s + t.slice(i);
+
+		result = insert(result, 0, `\n${fillTabs(tabsCount)}`);
+		if (tabsCount !== 0)
+			result = insert(result, result.length, `\n${fillTabs(tabsCount - 1)}`);
+
+		return result;
+	}
 }

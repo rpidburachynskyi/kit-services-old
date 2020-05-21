@@ -6,6 +6,7 @@ import { TextMarker } from 'codemirror';
 import { debounce } from 'debounce';
 import { ResultControlerService } from '../result-controler.service';
 import { WorkControlerService } from '../work-controler.service';
+import { CodeWrapperComponent } from 'src/app/shared/shared/code-wrapper/code-wrapper.component';
 
 @Component({
 	selector: 'app-input-patterns',
@@ -24,7 +25,7 @@ export class InputPatternsComponent implements OnInit {
 	get textPattern(): string { return this.workController.currentWork.textPattern; }
 	set textPattern(value: string) { this.workController.currentWork.textPattern = value; }
 
-	@ViewChild("textCM", { static: true }) textCM: CodemirrorComponent;
+	@ViewChild("textCM", { static: true }) textCM: CodeWrapperComponent;
 	@ViewChild("regExpCM", { static: true }) regExpCM: CodemirrorComponent;
 
 

@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 }
 
 const loginMutation = gql`
-mutation Login($email: String!, $password: String!) {
+mutation Login($email: string!, $password: string!) {
   login(email: $email, password: $password) {
     id
     email

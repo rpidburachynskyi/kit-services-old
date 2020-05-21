@@ -5,21 +5,22 @@ import { GroupMoverModule } from './group-mover/group-mover.module';
 import { RegularExpressionComponent } from './regular-expression.component';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { CodeWrapperComponent } from '../components/code-wrapper/code-wrapper.component';
+import { SharedModule } from '../shared/shared/shared.module';
 
 @NgModule({
     declarations: [
         RegularExpressionComponent,
-        CodeWrapperComponent
     ],
     imports: [
         CommonModule,
         RegularExpressionRoutingModule,
         GroupMoverModule,
         CodemirrorModule,
-        FormsModule
+        FormsModule,
+        SharedModule
     ],
-    exports: [],
+    exports: [
+    ],
     providers: [],
 })
 export class RegularExpressionModule { }

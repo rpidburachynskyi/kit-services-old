@@ -1,0 +1,13 @@
+@import "../../../../styles/effects.scss";
+
+:host {
+    @extend %button-template;
+
+    width: 100%;
+
+    display: flex;
+}
+
+.kit-combobox-option {
+    &-icon {}
+}

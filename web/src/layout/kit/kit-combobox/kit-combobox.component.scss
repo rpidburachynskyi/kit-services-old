@@ -1,4 +1,12 @@
 %option-template {
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+
+    font-size: 18px;
+
     color: #ffec00;
     background-color: #580ead;
     border: 2px solid #b1009b;
@@ -19,27 +27,37 @@
 }
 
 :host {
+    width: 170px;
     display: inline-flex;
+
 }
 
 .kit-combobox {
     position: relative;
 
+    flex: 1;
+    display: flex;
+
+
     cursor: pointer;
 
     &-value {
         @extend %option-template;
+
+        flex: 1;
     }
 
     &-options {
         width: 100%;
         position: absolute;
-        top: 100%;
 
+        overflow: hidden;
         z-index: 1500;
 
         &-option {
             @extend %option-template;
+
+            box-sizing: border-box;
         }
     }
 }

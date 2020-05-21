@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { WasmService } from './services/wasm.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ export class AppComponent {
   title = 'kit-services';
 
   constructor(
-    private apollo: Apollo
+    private apollo: Apollo,
+    private wasm: WasmService
   ) {
     this.apollo.watchQuery({
       query: gql`

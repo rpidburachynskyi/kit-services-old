@@ -1,0 +1,18 @@
+:host {
+    padding: 10px;
+
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(120px, 1fr));
+
+    &-item {
+        height: 100px;
+
+        display: flex;
+
+        color: white;
+        border: 1px solid white;
+    }
+}

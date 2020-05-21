@@ -10,7 +10,7 @@ import { ResultControlerService } from '../result-controler.service';
 export class ResultViewerComponent {
 
   result: string;
-  
+
   constructor(private resultController: ResultControlerService) {
     this.resultController.result$.subscribe(result => {
       this.result = result;

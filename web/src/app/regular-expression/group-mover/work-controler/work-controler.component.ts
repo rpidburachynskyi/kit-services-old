@@ -78,4 +78,6 @@ export class WorkControlerComponent {
   }
 
   remove = this.workController.remove;
+
+  prs() { return '0'; }
 }

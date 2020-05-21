@@ -1,0 +1,9 @@
+<kit-input-files-group [(files)]="files"></kit-input-files-group>
+
+<kit-fixed-side-panel>
+    <div class="crypto-files-params">
+        <app-input-params class="crypto-files-params-input"></app-input-params>
+        <app-dencrypt-params class="crypto-files-params-crypto"></app-dencrypt-params>
+        <kit-button (click)="onDoClick()">{{ buttonLabel }}</kit-button>
+    </div>
+</kit-fixed-side-panel>

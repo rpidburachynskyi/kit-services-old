@@ -10,6 +10,10 @@ import { KitIconComponent } from './kit/kit-icon/kit-icon.component';
 import { KitTabsComponent } from './kit/kit-tabs/kit-tabs.component';
 import { KitTabComponent } from './kit/kit-tab/kit-tab.component';
 import { KitIconButtonComponent } from './kit/kit-icon-button/kit-icon-button.component';
+import { KitInputFileComponent } from './kit/kit-input-file/kit-input-file.component';
+import { KitToggleValueComponent } from './kit/kit-toggle/kit-toggle-value/kit-toggle-value.component';
+import { KitFixedSidePanelComponent } from './kit/kit-fixed-side-panel/kit-fixed-side-panel.component';
+import { KitInputFilesGroupComponent } from './kit/kit-input-files-group/kit-input-files-group.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +25,11 @@ import { KitIconButtonComponent } from './kit/kit-icon-button/kit-icon-button.co
         KitIconComponent,
         KitTabsComponent,
         KitTabComponent,
-        KitIconButtonComponent
+        KitIconButtonComponent,
+        KitInputFileComponent,
+        KitToggleValueComponent,
+        KitFixedSidePanelComponent,
+        KitInputFilesGroupComponent
     ],
     imports: [
         CommonModule,
@@ -34,10 +42,15 @@ import { KitIconButtonComponent } from './kit/kit-icon-button/kit-icon-button.co
         KitTextFieldComponent,
         KitButtonComponent,
         KitToggleComponent,
+        KitToggleValueComponent,
         KitIconComponent,
         KitTabsComponent,
         KitTabComponent,
-        KitIconButtonComponent
+        KitIconButtonComponent,
+        KitInputFileComponent,
+        KitFixedSidePanelComponent,
+        KitInputFilesGroupComponent
+
     ],
     providers: [],
 })

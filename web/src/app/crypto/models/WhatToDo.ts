@@ -1,0 +1,1 @@
+export type WhatToDo = 'encrypt' | 'decrypt' | 'rencrypt';

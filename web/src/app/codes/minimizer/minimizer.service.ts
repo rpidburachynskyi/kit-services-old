@@ -19,7 +19,7 @@ export class MinimizerService {
   }
 
   minimize() {
-    this.http.get("/codes/minimizer", { text: this.inputText})
+    this.http.get("/codes/minimizer", { text: this.inputText })
       .subscribe(data => {
         this.outputText$.next(data['result']);
       });

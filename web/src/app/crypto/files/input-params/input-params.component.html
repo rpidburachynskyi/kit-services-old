@@ -1,0 +1,13 @@
+<div>
+    <span>What to do</span>
+    <kit-combobox [(ngModel)]="whatToDo">
+        <kit-combobox-option value="encrypt" text="Encrypt"></kit-combobox-option>
+        <kit-combobox-option value="decrypt" text="Decrypt"></kit-combobox-option>
+        <kit-combobox-option value="rencrypt" text="Rencrypt"></kit-combobox-option>
+    </kit-combobox>
+</div>
+<kit-toggle [(ngModel)]="allInOne">
+    <kit-toggle-value side="left">One in one</kit-toggle-value>
+    <kit-toggle-value side="right">All in one</kit-toggle-value>
+</kit-toggle>
+<kit-text-field [(ngModel)]="outputFileName"></kit-text-field>

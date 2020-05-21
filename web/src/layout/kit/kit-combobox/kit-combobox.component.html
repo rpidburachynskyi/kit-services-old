@@ -2,7 +2,7 @@
     <div *ngIf="optionValue" class="kit-combobox-value" (click)="opened = !opened">
         {{ optionValue.text }}
     </div>
-    <div class="kit-combobox-options" *ngIf="opened">
+    <div [@listState]="opened ? 'opened' : 'closed'" class="kit-combobox-options">
         <div *ngFor="let option of options" class="kit-combobox-options-option" (click)="selectOption(option)">
             <span>{{ option.text }}</span>
         </div>

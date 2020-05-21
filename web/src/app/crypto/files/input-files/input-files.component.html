@@ -1,0 +1,13 @@
+<div class="">
+
+</div>
+
+<div class="input-files-container">
+    <kit-input-file *ngFor="let file of files" class="input-files-container-item" (upload)="uploadFile($event)"
+        multiple="true">
+        {{ file.name }}
+    </kit-input-file>
+    <kit-input-file class="input-files-container-item" (upload)="uploadFile($event)" multiple="true">
+        +
+    </kit-input-file>
+</div>

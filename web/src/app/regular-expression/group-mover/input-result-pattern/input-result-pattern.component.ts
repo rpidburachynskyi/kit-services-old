@@ -20,7 +20,7 @@ export class InputResultPatternComponent implements OnInit {
 			/function\(match, index\) {\n\t(((\s*)|.*)*)\n}$/.exec(pattern)[1];
 	}
 
-	get eachFunctionError(): any { return this.resultController.eachFunctionError; }
+	get eachFunctionError(): string { return this.resultController.eachFunctionError; }
 
 	get globalCodePattern(): string { return `function(matches) {\n\t${this.workController.currentWork.globalFunction}\n}`; }
 	set globalCodePattern(pattern: string) {

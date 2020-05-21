@@ -221,12 +221,12 @@ export class WorkControlerService {
 
 const saveNewMutation = gql`
 mutation saveGroupMover(
-	$name: String!
-	$regExpPattern: String!
-	$textPattern: String!
-	$eachFunction: String!
-	$globalFunction: String!
-	$argumentsPattern: String!
+	$name: string!
+	$regExpPattern: string!
+	$textPattern: string!
+	$eachFunction: string!
+	$globalFunction: string!
+	$argumentsPattern: string!
   ) {
 	saveGroupMover(
 	  name: $name
@@ -250,11 +250,11 @@ mutation saveGroupMover(
 const saveMutation = gql`
 mutation saveGroupMover(
 	$id: ID!
-	$regExpPattern: String!
-	$eachFunction: String!
-	$textPattern: String!
-	$globalFunction: String!
-	$argumentsPattern: String!
+	$regExpPattern: string!
+	$eachFunction: string!
+	$textPattern: string!
+	$globalFunction: string!
+	$argumentsPattern: string!
   ) {
 	saveGroupMover(
 	  id: $id

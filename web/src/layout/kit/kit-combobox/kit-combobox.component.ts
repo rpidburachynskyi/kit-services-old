@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, forwardRef, ContentChil
 import { iKitComboboxOption } from '../../models/iKitComboboxOption.model';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { KitComboboxOptionComponent } from './kit-combobox-option/kit-combobox-option.component';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
 	selector: 'kit-combobox',
@@ -13,6 +14,20 @@ import { KitComboboxOptionComponent } from './kit-combobox-option/kit-combobox-o
 			useExisting: forwardRef(() => KitComboboxComponent),
 			multi: true
 		}
+	],
+	animations: [
+		trigger("listState", [
+			state("opened", style({
+				width: "170px",
+				height: "*",
+				transform: "scale(1.4) translateY(15%)",
+			})),
+			state("closed", style({
+				height: "0"
+			})),
+			transition("*=>opened", animate("100ms")),
+			transition("*=>closed", animate("100ms"))
+		])
 	]
 })
 export class KitComboboxComponent implements ControlValueAccessor {

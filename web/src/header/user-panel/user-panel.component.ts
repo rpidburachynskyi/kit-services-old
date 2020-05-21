@@ -12,7 +12,7 @@ export class UserPanelComponent implements OnInit {
 
 	user: {
 		id: Number,
-		email: String
+		email: string
 	} = null;
 
 	constructor(

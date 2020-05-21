@@ -12,9 +12,9 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   get(url: string, params: any): Observable<ArrayBuffer> | Observable<Object> {
-    
+
     return this.http.get(`${this._base}${url}`, { params });
   }
 
-  
+
 }

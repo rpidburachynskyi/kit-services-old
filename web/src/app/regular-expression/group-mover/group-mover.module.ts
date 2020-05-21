@@ -12,6 +12,7 @@ import { ResultControlerService } from './result-controler.service';
 import { CodemirrorModule, CodemirrorComponent } from '@ctrl/ngx-codemirror';
 import { FormsModule } from '@angular/forms';
 import { KitModule } from 'src/layout/kit.module';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { KitModule } from 'src/layout/kit.module';
         FormsModule,
         KitModule,
         CodemirrorModule,
+        SharedModule
     ],
     exports: [
         GroupMoverComponent

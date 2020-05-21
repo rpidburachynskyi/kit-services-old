@@ -36,8 +36,8 @@ const processMatches = ({ regexp, text }: any) => {
 	w.postMessage({ regexp, text });
 }
 
-const processFunctionFactory = (fn, codeName: String) => {
-	return ({ code, matches }: { code: String, matches: RegExpExecArray[] }) => {
+const processFunctionFactory = (fn, codeName: string) => {
+	return ({ code, matches }: { code: string, matches: RegExpExecArray[] }) => {
 		const w = createWorker(fn);
 
 		let flag: Boolean = false;

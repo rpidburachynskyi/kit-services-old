@@ -4,5 +4,5 @@ export interface iGroup {
 }
 
 export class Group implements iGroup {
-    constructor(public number :number, public text: string) { }
+    constructor(public number: number, public text: string) { }
 }

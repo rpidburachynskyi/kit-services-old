@@ -19,8 +19,8 @@ export class JsTextComponent implements OnInit {
 	get outputText(): string { return this.jsTest.outputText$.getValue(); };
 
 	get functionText(): string { return `function (text) {\n\t${this.jsTest.functionText}\n}`; }
-	set functionText(text: string) { 
-		this.jsTest.functionText = /function \(text\) {\n\t(((\s*)|.*)*)\n}$/.exec(text)[1]; 
+	set functionText(text: string) {
+		this.jsTest.functionText = /function \(text\) {\n\t(((\s*)|.*)*)\n}$/.exec(text)[1];
 	}
 
 	constructor(private jsTest: JsTestService) { }
@@ -28,7 +28,7 @@ export class JsTextComponent implements OnInit {
 	ngOnInit(): void {
 		setTimeout(() => {
 			this.functionCM.codeMirror.on("beforeChange", (instance, changeObj) => {
-				if(changeObj.from.line === 0 || changeObj.from.line === instance.lineCount() - 1) 
+				if (changeObj.from.line === 0 || changeObj.from.line === instance.lineCount() - 1)
 					changeObj.cancel();
 			});
 		}, 0);

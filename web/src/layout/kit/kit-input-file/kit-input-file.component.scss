@@ -1,0 +1,35 @@
+:host {
+    height: 100px;
+    width: 100px;
+
+    display: flex;
+
+    border: 1px solid white;
+}
+
+.kit-input-file {
+    &-background {
+        flex: 1;
+
+        position: relative;
+
+        &::before,
+        &::after {
+            content: "";
+
+            position: absolute;
+
+            top: 50% - 10%;
+            left: 50% - 35%;
+
+            width: 70%;
+            height: 10%;
+
+            background-color: yellow;
+        }
+
+        &::after {
+            transform: rotate(90deg);
+        }
+    }
+}
