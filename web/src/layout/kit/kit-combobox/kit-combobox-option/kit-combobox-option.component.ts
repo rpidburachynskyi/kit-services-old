@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ContentChild, ViewChild, ContentChildren, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, ViewChild, ContentChildren, TemplateRef, HostBinding, HostListener } from '@angular/core';
 import { KitIconComponent } from '../../kit-icon/kit-icon.component';
 
 @Component({
@@ -10,6 +10,8 @@ export class KitComboboxOptionComponent implements OnInit {
 
   @Input("value") value;
   @Input("text") text;
+
+  @HostListener("click") onClick = () => { };
 
   @ContentChild(KitIconComponent, { static: false }) icon: any;
 

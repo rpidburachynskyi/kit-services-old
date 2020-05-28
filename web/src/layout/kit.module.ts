@@ -13,7 +13,16 @@ import { KitIconButtonComponent } from './kit/kit-icon-button/kit-icon-button.co
 import { KitInputFileComponent } from './kit/kit-input-file/kit-input-file.component';
 import { KitToggleValueComponent } from './kit/kit-toggle/kit-toggle-value/kit-toggle-value.component';
 import { KitFixedSidePanelComponent } from './kit/kit-fixed-side-panel/kit-fixed-side-panel.component';
+import { KitFixedSidePanelHeaderComponent } from './kit/kit-fixed-side-panel/kit-fixed-side-panel-header.component';
+import { KitFixedSidePanelContentComponent } from './kit/kit-fixed-side-panel/kit-fixed-side-panel-content.component';
+import { KitFixedSidePanelFooterComponent } from './kit/kit-fixed-side-panel/kit-fixed-side-panel-footer.component';
 import { KitInputFilesGroupComponent } from './kit/kit-input-files-group/kit-input-files-group.component';
+import { KitExpansionPanelComponent } from './kit/kit-expansion-panel/kit-expansion-panel.component';
+import { KitTextComponent } from './kit/kit-text/kit-text.component';
+import { KitLabelComponent } from './kit/kit-label/kit-label.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { KitDividerComponent } from './kit/kit-divider/kit-divider.component';
+import { KitComboboxOptionGroupComponent } from './kit/kit-combobox/kit-combobox-option-group/kit-combobox-option-group.component';
 
 @NgModule({
     declarations: [
@@ -29,12 +38,21 @@ import { KitInputFilesGroupComponent } from './kit/kit-input-files-group/kit-inp
         KitInputFileComponent,
         KitToggleValueComponent,
         KitFixedSidePanelComponent,
-        KitInputFilesGroupComponent
+        KitInputFilesGroupComponent,
+        KitFixedSidePanelHeaderComponent,
+        KitFixedSidePanelFooterComponent,
+        KitFixedSidePanelContentComponent,
+        KitExpansionPanelComponent,
+        KitTextComponent,
+        KitLabelComponent,
+        KitDividerComponent,
+        KitComboboxOptionGroupComponent,
     ],
     imports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        BrowserAnimationsModule
     ],
     exports: [
         KitComboboxComponent,
@@ -49,8 +67,15 @@ import { KitInputFilesGroupComponent } from './kit/kit-input-files-group/kit-inp
         KitIconButtonComponent,
         KitInputFileComponent,
         KitFixedSidePanelComponent,
-        KitInputFilesGroupComponent
-
+        KitInputFilesGroupComponent,
+        KitFixedSidePanelHeaderComponent,
+        KitFixedSidePanelFooterComponent,
+        KitFixedSidePanelContentComponent,
+        KitExpansionPanelComponent,
+        KitTextComponent,
+        KitLabelComponent,
+        KitDividerComponent,
+        KitComboboxOptionGroupComponent
     ],
     providers: [],
 })

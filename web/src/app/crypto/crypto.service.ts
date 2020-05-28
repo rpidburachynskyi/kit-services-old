@@ -16,20 +16,20 @@ export class CryptoService {
   ) {
   }
 
-  encrypt = (buffer: ArrayBuffer, params: iEncryptParams) => {
+  encrypt = (buffer: Uint8Array, params: iEncryptParams) => {
     switch (params.method) {
       case DencryptMethods.XOR: return this.xor_encrypt(buffer, params.key);
     }
   }
 
-  decrypt(buffer: ArrayBuffer, params: IDecryptParams) {
+  decrypt(buffer: Uint8Array, params: IDecryptParams) {
     switch (params.method) {
       case DencryptMethods.XOR: return this.xor_decrypt(buffer, params.key);
     }
   }
 
-  private xor_encrypt(buffer: ArrayBuffer, key: string) {
-    let result = new Uint8Array(buffer);
+  private xor_encrypt(buffer: Uint8Array, key: string) {
+    let result = buffer;
     let _key = new TextEncoder().encode(key);
     for (let i = 0; i < result.byteLength; i++) {
       result[i] = result[i] ^ _key[i % _key.length];

@@ -6,7 +6,7 @@ import { TextMarker } from 'codemirror';
 import { debounce } from 'debounce';
 import { ResultControlerService } from '../result-controler.service';
 import { WorkControlerService } from '../work-controler.service';
-import { CodeWrapperComponent } from 'src/app/shared/shared/code-wrapper/code-wrapper.component';
+import { CodeWrapperComponent } from 'src/app/shared/code-wrapper/code-wrapper.component';
 
 @Component({
 	selector: 'app-input-patterns',

@@ -67,6 +67,18 @@ export class ServicesService {
           examples: []
         }
       ]
+    }, {
+      name: "Crypto",
+      description: "My codes description",
+      path: "/crypto",
+      subservices: [
+        {
+          name: "Crypto-files",
+          description: "My minimizer description",
+          path: "/files",
+          examples: []
+        }
+      ]
     }
   ]
 

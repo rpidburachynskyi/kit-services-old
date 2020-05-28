@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef, Output, EventEmitter, Input } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { from, Observable } from 'rxjs';
 
 @Component({
   selector: 'kit-input-file',
@@ -8,7 +9,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   animations: [
     trigger("dragFiles", [
       state("hold", style({
-        backgroundColor: "red"
+        backgroundColor: ""
       })),
       state("enter", style({
         backgroundColor: "blue"
@@ -24,7 +25,11 @@ export class KitInputFileComponent implements OnInit {
     if (event.isTrusted) {
       event.preventDefault();
       event.stopPropagation();
-      this._input.nativeElement.click();
+      if (this.isView) {
+        this.unload.emit();
+      } else {
+        this._input.nativeElement.click();
+      }
     }
   }
 
@@ -76,11 +81,24 @@ export class KitInputFileComponent implements OnInit {
     }
   }
 
+  get isView(): boolean { return !!this.viewFile; }
+
   @ViewChild("input", { static: true }) _input: ElementRef<HTMLInputElement>;
-
   @Input("multiple") multiple: Boolean = false;
-
   @Output("upload") upload: EventEmitter<File | File[]> = new EventEmitter();
+  @Output("unload") unload: EventEmitter<null> = new EventEmitter();
+
+  @Input() viewFile: File;
+
+  src = new Observable<string>(observer => {
+    if (!this.viewFile) throw new Error("File not provided");
+    const reader = new FileReader();
+    reader.onload = async (e: any) => {
+      if (typeof e.target.result === null || typeof e.target.result !== 'string') throw new Error("Result isn't string");
+      observer.next(e.target.result);
+    };
+    reader.readAsDataURL(this.viewFile);
+  });
 
   dragFilesState: string = 'hold';
 
@@ -93,5 +111,4 @@ export class KitInputFileComponent implements OnInit {
       this.upload.emit(files);
     });
   }
-
 }

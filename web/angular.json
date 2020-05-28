@@ -42,7 +42,7 @@
               "./node_modules/codemirror/lib/codemirror.js",
               "./src/assets/libs/splitter.js"
             ],
-            "webWorkerTsConfig": "tsconfig.worker.json",
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -124,7 +124,7 @@
             ],
             "exclude": [
               "**/node_modules/**"
-            ],
+            ]
           }
         },
         "e2e": {

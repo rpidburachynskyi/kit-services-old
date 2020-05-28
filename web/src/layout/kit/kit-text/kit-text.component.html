@@ -1,0 +1,38 @@
+<ng-container [ngSwitch]="type">
+    <h1 *ngSwitchCase="'h1'">
+        <ng-container *ngTemplateOutlet="t"></ng-container>
+    </h1>
+    <h2 *ngSwitchCase="'h2'">
+        <ng-container *ngTemplateOutlet="t"></ng-container>
+    </h2>
+    <h3 *ngSwitchCase="'h3'">
+        <ng-container *ngTemplateOutlet="t"></ng-container>
+    </h3>
+    <h4 *ngSwitchCase="'h4'">
+        <ng-container *ngTemplateOutlet="t"></ng-container>
+    </h4>
+    <h5 *ngSwitchCase="'h5'">
+        <ng-container *ngTemplateOutlet="t"></ng-container>
+    </h5>
+    <h6 *ngSwitchCase="'h6'">v
+    </h6>
+    <span *ngSwitchCase="'span'">
+        <ng-container *ngTemplateOutlet="t"></ng-container>
+    </span>
+    <p *ngSwitchCase="'p'">
+        <ng-container *ngTemplateOutlet="t"></ng-container>
+    </p>
+    <h2 *ngSwitchCase="'title'">
+        <ng-container *ngTemplateOutlet="t"></ng-container>
+    </h2>
+    <h3 *ngSwitchCase="'subtitle'">
+        <ng-container *ngTemplateOutlet="t"></ng-container>
+    </h3>
+    <p *ngSwitchCase="'text'">
+        <ng-container *ngTemplateOutlet="t"></ng-container>
+    </p>
+</ng-container>
+
+<ng-template #t>
+    <ng-content></ng-content>
+</ng-template>

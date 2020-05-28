@@ -21,6 +21,10 @@ export class FilesComponent implements OnInit {
   }
 
   onDoClick() {
-    this._files.do();
+    if (this._files.whatToDo === 'encrypt') {
+      this._files.encrypt();
+    } else {
+      this._files.decrypt();
+    }
   }
 }

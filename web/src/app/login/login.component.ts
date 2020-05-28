@@ -4,37 +4,37 @@ import { ApiService } from '../api.service';
 import gql from 'graphql-tag';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  email: string = "";
-  password: string = "";
+	email: string = "";
+	password: string = "";
 
-  constructor(
-    private apollo: Apollo,
-    private api: ApiService
-  ) {
+	constructor(
+		private apollo: Apollo,
+		private api: ApiService
+	) {
 
-  }
+	}
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
-  login() {
-    this.apollo.mutate({
-      mutation: loginMutation,
-      variables: {
-        email: this.email,
-        password: this.password
-      },
-      refetchQueries: [{ query: currentUserQuery }]
-    }).subscribe(o => {
-      console.log(1);
-    })
-  }
+	login() {
+		this.apollo.mutate({
+			mutation: loginMutation,
+			variables: {
+				email: this.email,
+				password: this.password
+			},
+			refetchQueries: [{ query: currentUserQuery }]
+		}).subscribe(o => {
+			console.log(1);
+		})
+	}
 
 }
 

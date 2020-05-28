@@ -1,28 +1,10 @@
+@import "../../../styles/effects.scss";
+
 %option-template {
-    height: 32px;
+    @extend %button-template;
 
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-
-    font-size: 18px;
-
-    color: #ffec00;
-    background-color: #580ead;
-    border: 2px solid #b1009b;
-
-    user-select: none;
-
-    &:hover {
-        color: #fff140;
-        background-color: #8742d6;
-        border: 2px solid #d836c4;
-    }
-
-    &:active {
-        color: #fff573;
-        background-color: #9c6ad6;
-        border: 2px solid #d861c9;
+    &:not(:first-child) {
+        border-top: none;
     }
 }
 
@@ -38,7 +20,6 @@
     flex: 1;
     display: flex;
 
-
     cursor: pointer;
 
     &-value {
@@ -47,17 +28,22 @@
         flex: 1;
     }
 
-    &-options {
+    &-options,
+    &-groups {
         width: 100%;
         position: absolute;
 
-        overflow: hidden;
+        max-height: 200px;
+        overflow: auto;
+
         z-index: 1500;
+    }
 
-        &-option {
-            @extend %option-template;
+    &-options {}
 
-            box-sizing: border-box;
-        }
+    &-groups {
+        display: grid;
+        grid-template-rows: auto-fill;
+        grid-row-gap: 5px;
     }
 }

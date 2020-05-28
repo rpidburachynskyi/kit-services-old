@@ -14,7 +14,7 @@ export class KitIconComponent implements OnInit, OnChanges {
 
   @Input("iconLabel") _iconLabel = "";
   @Input("color") _color = "black";
-  @Input("size") _size: 'small' | 'medium' | 'high' | 'stretch' = 'medium';
+  @Input("size") _size: 'small' | 'medium' | 'high' | 'stretch' | 'stretch-height' | 'stretch-width' | 'custom' = 'medium';
 
   @Input("direction") _direction: IconDirection = 'up';
 
@@ -25,6 +25,10 @@ export class KitIconComponent implements OnInit, OnChanges {
       case 'small': this._height = '24px'; this._width = '24px'; break;
       case 'medium': this._height = '32px'; this._width = '32px'; break;
       case 'high': this._height = '48px'; this._width = '48px'; break;
+      case 'stretch-height': this._height = null; this._width = "auto"; break;
+      case 'stretch-width': this._height = 'auto'; this._width = null; break;
+      case 'stretch-width': this._height = 'auto'; this._width = null; break;
+      case 'custom': this._height = null; this._width = null; break;
       case 'stretch':
       default: this._height = '100%'; this._width = '100%'; break;
     }

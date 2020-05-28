@@ -2,7 +2,7 @@
 
 :host {
     padding: 10px;
-    background-color: $success-400;
+    background-color: $primary-400;
 
     display: flex;
     justify-content: space-between;
@@ -14,7 +14,7 @@
 
         cursor: pointer;
 
-        & > img {
+        &>img {
             max-height: 100%;
         }
     }

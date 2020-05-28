@@ -5,7 +5,7 @@ import { GroupMoverModule } from './group-mover/group-mover.module';
 import { RegularExpressionComponent } from './regular-expression.component';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { SharedModule } from '../shared/shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [

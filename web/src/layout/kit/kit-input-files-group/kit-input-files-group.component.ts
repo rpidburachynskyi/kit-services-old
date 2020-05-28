@@ -22,4 +22,7 @@ export class KitInputFilesGroupComponent implements OnInit {
     this._filesChange.emit(files);
   }
 
+  unloadFile(index: number) {
+    this.files = this.files.filter((f, i) => i !== index);
+  }
 }

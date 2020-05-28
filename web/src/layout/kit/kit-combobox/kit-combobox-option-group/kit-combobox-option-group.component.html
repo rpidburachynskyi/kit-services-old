@@ -1,0 +1,14 @@
+<ng-container *ngIf="_title !== ''; then thenTemplate; else elseTemplate"></ng-container>
+<ng-template #thenTemplate>
+    <span>{{ _title }}</span>
+    <div>
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+    </div>
+</ng-template>
+<ng-template #elseTemplate>
+    <ng-container *ngTemplateOutlet="content"></ng-container>
+</ng-template>
+
+<ng-template #content>
+    <ng-content></ng-content>
+</ng-template>

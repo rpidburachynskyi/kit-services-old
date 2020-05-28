@@ -4,11 +4,14 @@
     display: inline-flex;
 }
 
-.kit-button {
+.button {
     @extend %button-template;
     flex: 1;
 
-    color: #ffec00;
 
     box-sizing: border-box;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 }

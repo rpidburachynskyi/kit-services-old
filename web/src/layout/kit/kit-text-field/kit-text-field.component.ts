@@ -26,6 +26,8 @@ export class KitTextFieldComponent implements ControlValueAccessor {
     this.onChange(value);
   };
 
+  @Input("password") _password: boolean = false;
+
   constructor() { }
 
   onChange = (_) => { };

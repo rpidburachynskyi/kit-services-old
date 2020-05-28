@@ -1,19 +1,17 @@
 @import "../../styles/colors.scss";
 
 :host {
-    max-width: 1024px;
 
     flex: 1;
 
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
-header {
-}
+header {}
 
-section {
-}
+section {}
 
 .service-section {
     padding: 10px 10px 50px;

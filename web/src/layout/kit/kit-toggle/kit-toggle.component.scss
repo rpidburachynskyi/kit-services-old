@@ -1,4 +1,4 @@
-$height: 20px;
+$height: 30px;
 
 :host {
     display: inline-flex;
@@ -21,7 +21,7 @@ $height: 20px;
         position: absolute;
 
         &:checked {
-            & ~ .kit-toggle-circle::after {
+            &~.kit-toggle-circle::after {
                 left: $height / 2;
 
                 background-color: #d836c4;

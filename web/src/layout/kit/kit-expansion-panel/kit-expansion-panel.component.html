@@ -1,0 +1,11 @@
+<div class="header" (click)="onClickHeader()">
+    <kit-text type="subtitle" class="header-title">
+        {{ title }}
+    </kit-text>
+    <kit-icon class="header-arrow" size="custom" iconLabel="simple-arrow"
+        [ngStyle]="{'transform': 'rotate(' + (opened ? 180 : 0) + 'deg)'}">
+    </kit-icon>
+</div>
+<div [@content]="opened ? 'opened' : 'closed'" class="content" [ngStyle]="{'overflow': scroll ? 'auto' : 'hidden'}">
+    <ng-content></ng-content>
+</div>
