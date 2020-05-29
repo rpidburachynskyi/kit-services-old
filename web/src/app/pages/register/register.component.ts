@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Apollo } from 'apollo-angular';
+import { RegisterGQL } from 'src/app/providers/apollo/generated/graphql';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
-
-  email: string = "";
-  password: string = "";
+export class RegisterComponent {
 
   form = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
@@ -19,21 +17,16 @@ export class RegisterComponent implements OnInit {
   })
 
   constructor(
-    private api: ApiService
+    private apollo: Apollo
   ) { }
 
-  ngOnInit() {
-  }
-
-  register() {
-    this.api.register(this.email, this.password)
-      .subscribe(o => {
-        console.log(o);
-      })
-  }
-
   onSubmit() {
-    console.log(this.form);
+    new RegisterGQL(this.apollo).mutate({
+      email: this.form.controls.email.value,
+      password: this.form.controls.password.value
+    }).subscribe(observer => {
+      console.log(observer);
+    })
   }
 
 }

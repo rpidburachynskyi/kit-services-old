@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { ApiService } from 'src/app/api.service';
 
 @Component({
 	selector: 'app-user-panel',
 	templateUrl: './user-panel.component.html',
 	styleUrls: ['./user-panel.component.scss']
 })
-export class UserPanelComponent implements OnInit {
+export class UserPanelComponent {
 
 	user: {
 		id: Number,
@@ -17,7 +16,6 @@ export class UserPanelComponent implements OnInit {
 
 	constructor(
 		private apollo: Apollo,
-		private api: ApiService
 	) {
 		this.apollo
 			.watchQuery({ query })
@@ -36,9 +34,6 @@ export class UserPanelComponent implements OnInit {
 				};
 				console.log(this.user);
 			})
-	}
-
-	ngOnInit() {
 	}
 
 	logout() {

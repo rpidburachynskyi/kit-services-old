@@ -20,10 +20,10 @@ import { GroupMoverService } from './regular-expression/group-mover/group-mover.
 import { TextsModule } from './texts/texts.module';
 import { UserIconComponent } from 'src/layout/user-icon/user-icon.component';
 import { UserPanelComponent } from '../header/user-panel/user-panel.component';
-import { GraphQLModule } from './graphql.module';
-import { LoginComponent } from './login/login.component';
+import { GraphQLModule } from './providers/apollo/graphql.module';
+import { LoginComponent } from './pages/login/login.component';
 import { KitModule } from 'src/layout/kit.module';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CryptoModule } from './crypto/crypto.module';

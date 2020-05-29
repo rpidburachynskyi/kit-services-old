@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { KitLocalState } from '../extends/kit-local-state';
 
 @Component({
   selector: 'kit-expansion-panel',
@@ -37,9 +38,15 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
     ])
   ],
 })
-export class KitExpansionPanelComponent implements OnInit {
+export class KitExpansionPanelComponent extends KitLocalState implements OnInit {
 
-  opened: boolean = false;
+  private _opened: boolean = false;
+
+  get opened(): boolean { return this._opened; }
+  set opened(value: boolean) {
+    this._opened = value;
+    this.localWrite("opened", value);
+  }
 
   @Input("title") title: string = "";
   @Input("scroll") scroll: boolean = true;
@@ -47,10 +54,13 @@ export class KitExpansionPanelComponent implements OnInit {
 
   @HostBinding("attr.disabled") _disabled: boolean = false;
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
     this._disabled = this.disabled;
+    this.opened = this.localRead("opened", false);
   }
 
   onClickHeader() {

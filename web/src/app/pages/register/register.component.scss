@@ -1,6 +1,10 @@
 .register {
-    &-container {
+    &-form {
         display: flex;
         flex-direction: column;
     }
+}
+
+kit-button {
+    align-self: center;
 }

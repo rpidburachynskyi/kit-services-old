@@ -10,7 +10,7 @@ function write(localId: string, id: string, data: any) {
 
 function read(localId: string, id: string, _default: any): any {
     if (!localId || localId === "")
-        return;
+        return _default;
 
     if (typeof id !== 'string') throw new Error("id must be a string");
 
@@ -33,7 +33,6 @@ export class KitLocalState {
     }
 
     localWrite(id: string, data: any) {
-        console.log(data);
         write(this.localId, id, data);
     }
 }
