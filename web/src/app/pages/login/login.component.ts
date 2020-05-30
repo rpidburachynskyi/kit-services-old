@@ -1,53 +1,58 @@
-import { Component, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
+import { Component } from "@angular/core";
+import { Apollo } from "apollo-angular";
+import { FormGroup, FormControl } from "@angular/forms";
+import {
+	LoginGQL,
+	CurrentUserDocument,
+} from "src/app/providers/apollo/generated/graphql";
+import { KitSnackbarComponent } from "src/layout/kit/kit-snackbar/kit-snackbar.component";
 
 @Component({
-	selector: 'app-login',
-	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss']
+	selector: "app-login",
+	templateUrl: "./login.component.html",
+	styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+	error: string;
 
-	email: string = "";
-	password: string = "";
+	form = new FormGroup({
+		email: new FormControl(""),
+		password: new FormControl(""),
+	});
 
 	constructor(
-		private apollo: Apollo,
-	) {
+		private loginGQL: LoginGQL,
+		private snackbar: KitSnackbarComponent
+	) {}
 
+	onSubmit() {
+		this.loginGQL
+			.mutate(
+				{
+					email: this.form.controls.email.value,
+					password: this.form.controls.password.value,
+				},
+				{
+					refetchQueries: [
+						{
+							query: CurrentUserDocument,
+						},
+					],
+				}
+			)
+			.subscribe(
+				({ data: { login } }) => {},
+				(error) => {
+					const errorMessage = error.message.substring(15);
+
+					switch (errorMessage) {
+						case "UNKNOWN_DATA":
+							this.error = "Unknown data";
+							break;
+						default:
+							throw new Error(`Unknown error ${errorMessage}`);
+					}
+				}
+			);
 	}
-
-	ngOnInit() {
-	}
-
-	login() {
-		this.apollo.mutate({
-			mutation: loginMutation,
-			variables: {
-				email: this.email,
-				password: this.password
-			},
-			refetchQueries: [{ query: currentUserQuery }]
-		}).subscribe(o => {
-			console.log(1);
-		})
-	}
-
 }
-
-const loginMutation = gql`
-mutation Login($email: string!, $password: string!) {
-  login(email: $email, password: $password) {
-    id
-    email
-  }
-}
-`;
-
-const currentUserQuery = gql`
-query {
-  currentUser {
-    id
-  }
-}`;

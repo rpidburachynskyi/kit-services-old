@@ -1,13 +1,19 @@
-<div class="header-icon" routerLink="/">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/588px-Google_%22G%22_Logo.svg.png"
-        alt="">
+<div class="icon" routerLink="/">
+	<img
+		src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/588px-Google_%22G%22_Logo.svg.png"
+		alt=""
+	/>
 </div>
+<div style="position: relative;">
+	<app-user-icon
+		appCurrentUserIcon
+		class="user-icon"
+		(click)="openUserPanel($event)"
+	>
+	</app-user-icon>
 
-<div class="header-user-icon">
-    <app-user-icon
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/588px-Google_%22G%22_Logo.svg.png"
-        (click)="userPanelVisible = !userPanelVisible;">
-    </app-user-icon>
-
-    <app-user-panel *ngIf="userPanelVisible"></app-user-panel>
+	<app-user-panel
+		*ngIf="userPanelVisible"
+		(close)="closeUserPanel()"
+	></app-user-panel>
 </div>

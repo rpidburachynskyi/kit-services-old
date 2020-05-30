@@ -1,31 +1,39 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { CodemirrorComponent } from '@ctrl/ngx-codemirror';
+import {
+	Component,
+	OnInit,
+	Input,
+	Output,
+	EventEmitter,
+	ViewChild,
+} from "@angular/core";
+import { CodemirrorComponent } from "@ctrl/ngx-codemirror";
 
 @Component({
-  selector: 'app-code-wrapper',
-  templateUrl: './code-wrapper.component.html',
-  styleUrls: ['./code-wrapper.component.scss']
+	selector: "app-code-wrapper",
+	templateUrl: "./code-wrapper.component.html",
+	styleUrls: ["./code-wrapper.component.scss"],
 })
 export class CodeWrapperComponent implements OnInit {
+	@Input("type") _type: "js" | "regexp" = "js";
+	@Input("viewOnly") _viewOnly: Boolean = false;
 
-  @Input("type") _type: 'js' | 'regexp' = 'js';
-  @Input("viewOnly") _viewOnly: Boolean = false;
+	@Input("code") code: string = "";
+	@Input("readOnly") readOnly: Boolean = false;
 
-  @Input("code") code: string = "";
-  @Input("readOnly") readOnly: Boolean = false;
+	@Output("codeChange") codeChange = new EventEmitter<string>();
 
-  @Output("codeChange") codeChange = new EventEmitter<string>();
+	@ViewChild("codeMirror", { static: true })
+	private _codeMirror: CodemirrorComponent;
 
-  @ViewChild("codeMirror", { static: true }) private _codeMirror: CodemirrorComponent;
+	get codeMirror(): CodeMirror.EditorFromTextArea {
+		return this._codeMirror ? this._codeMirror.codeMirror : null;
+	}
 
-  get codeMirror(): CodeMirror.EditorFromTextArea { return this._codeMirror.codeMirror };
+	constructor() {}
 
-  constructor() { }
+	ngOnInit() {}
 
-  ngOnInit() {
-  }
-
-  onCodeChange(code: string) {
-    this.codeChange.emit(code);
-  }
+	onCodeChange(code: string) {
+		this.codeChange.emit(code);
+	}
 }

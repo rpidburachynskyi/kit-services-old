@@ -1,45 +1,71 @@
-import { Component, forwardRef, ContentChildren, QueryList, AfterContentInit, ElementRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { KitComboboxOptionComponent } from './kit-combobox-option/kit-combobox-option.component';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { KitDividerComponent } from '../kit-divider/kit-divider.component';
-import { KitComboboxOptionGroupComponent } from './kit-combobox-option-group/kit-combobox-option-group.component';
+import {
+	Component,
+	forwardRef,
+	ContentChildren,
+	QueryList,
+	AfterContentInit,
+	ElementRef,
+	AfterContentChecked,
+	OnChanges,
+} from "@angular/core";
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
+import { KitComboboxOptionComponent } from "./kit-combobox-option/kit-combobox-option.component";
+import {
+	trigger,
+	state,
+	style,
+	transition,
+	animate,
+} from "@angular/animations";
+import { KitDividerComponent } from "../kit-divider/kit-divider.component";
+import { KitComboboxOptionGroupComponent } from "./kit-combobox-option-group/kit-combobox-option-group.component";
 
 export type Option = KitComboboxOptionComponent | KitDividerComponent;
 
 @Component({
-	selector: 'kit-combobox',
-	templateUrl: './kit-combobox.component.html',
-	styleUrls: ['./kit-combobox.component.scss'],
+	selector: "kit-combobox",
+	templateUrl: "./kit-combobox.component.html",
+	styleUrls: ["./kit-combobox.component.scss"],
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
 			useExisting: forwardRef(() => KitComboboxComponent),
-			multi: true
-		}
+			multi: true,
+		},
 	],
 	animations: [
 		trigger("listState", [
-			state("opened", style({
-				height: "*",
-				transform: "translateY(40px)",
-			})),
-			state("closed", style({
-				height: "0"
-			})),
+			state(
+				"opened",
+				style({
+					height: "*",
+					transform: "translateY(40px)",
+				})
+			),
+			state(
+				"closed",
+				style({
+					height: "0",
+				})
+			),
 			transition("closed=>opened", animate("100ms")),
-			transition("opened=>closed", animate("100ms"))
-		])
-	]
+			transition("opened=>closed", animate("100ms")),
+		]),
+	],
 })
-export class KitComboboxComponent implements ControlValueAccessor, AfterContentInit {
-
-	@ContentChildren(KitComboboxOptionGroupComponent) _groups: QueryList<KitComboboxOptionGroupComponent>; // TODO
-	@ContentChildren(KitComboboxOptionComponent, { descendants: true }) _sss: QueryList<KitComboboxOptionComponent>; // TODO
+export class KitComboboxComponent
+	implements ControlValueAccessor, AfterContentChecked {
+	@ContentChildren(KitComboboxOptionGroupComponent) _groups: QueryList<
+		KitComboboxOptionGroupComponent
+	>;
+	@ContentChildren(KitComboboxOptionComponent, { descendants: true })
+	_sss: QueryList<KitComboboxOptionComponent>; // TODO
 
 	private _value: string;
 
-	get value(): string { return this._value; };
+	get value(): string {
+		return this._value;
+	}
 
 	set value(value: string) {
 		if (value === this._value) return;
@@ -49,7 +75,9 @@ export class KitComboboxComponent implements ControlValueAccessor, AfterContentI
 	}
 
 	get optionValue(): KitComboboxOptionComponent {
-		return this._sss.toArray().find(option => option.value === this.value);
+		return this._sss
+			.toArray()
+			.find((option) => option.value === this.value);
 	}
 
 	get groups(): KitComboboxOptionGroupComponent[] {
@@ -58,21 +86,18 @@ export class KitComboboxComponent implements ControlValueAccessor, AfterContentI
 
 	opened: Boolean = false;
 
-	constructor(
-		private element: ElementRef
-	) { }
+	constructor() {}
 
-	onChange = (_) => { };
+	onChange = (_) => {};
 
-	ngAfterContentInit() {
-		this._sss.toArray().forEach(option => {
+	ngAfterContentChecked() {
+		this._sss.toArray().forEach((option) => {
 			option.onClick = () => {
 				this.selectOption(option);
 			};
 		});
 	}
-
-	private onTouched = () => { };
+	private onTouched = () => {};
 
 	registerOnChange(f: any) {
 		this.onChange = f;

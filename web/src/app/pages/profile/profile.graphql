@@ -1,0 +1,3 @@
+mutation ChangePassword($password: String!) {
+	changePassword(password: $password)
+}

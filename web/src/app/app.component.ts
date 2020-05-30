@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { WasmService } from './services/wasm.service';
+import { WasmService } from './providers/wasm.service';
 
 @Component({
   selector: 'app-root',

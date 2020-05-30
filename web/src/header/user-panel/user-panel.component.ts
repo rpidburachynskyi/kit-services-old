@@ -1,68 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
+import { Component, Output, EventEmitter } from "@angular/core";
+import {
+	CurrentUserGQL,
+	LogoutGQL,
+} from "src/app/providers/apollo/generated/graphql";
 
 @Component({
-	selector: 'app-user-panel',
-	templateUrl: './user-panel.component.html',
-	styleUrls: ['./user-panel.component.scss']
+	selector: "app-user-panel",
+	templateUrl: "./user-panel.component.html",
+	styleUrls: ["./user-panel.component.scss"],
 })
 export class UserPanelComponent {
-
 	user: {
-		id: Number,
-		email: string
-	} = null;
+		id: string;
+		email: string;
+	};
+
+	@Output("close") close = new EventEmitter();
 
 	constructor(
-		private apollo: Apollo,
+		private currentUserGQL: CurrentUserGQL,
+		private logoutGQL: LogoutGQL
 	) {
-		this.apollo
-			.watchQuery({ query })
-			.valueChanges
-			.subscribe(({ data }) => {
-				const { currentUser }: any = data;
-
+		this.currentUserGQL
+			.watch()
+			.valueChanges.subscribe(({ data: { currentUser } }) => {
 				if (!currentUser) {
 					this.user = null;
 					return;
 				}
 
 				this.user = {
-					id: currentUser['id'],
-					email: currentUser['email']
+					id: currentUser["id"],
+					email: currentUser["email"],
 				};
-				console.log(this.user);
-			})
+			});
 	}
 
 	logout() {
-		this.apollo.mutate({
-			mutation: logoutNutation,
-			refetchQueries: [{ query: currentUserQuery }]
-		}).subscribe(console.log)
+		this.logoutGQL
+			.mutate(
+				{},
+				{
+					refetchQueries: [{ query: this.currentUserGQL.document }],
+				}
+			)
+			.subscribe(
+				(observer) => {},
+				(error) => {}
+			);
 	}
-
 }
-
-const query = gql`
-query {
-  currentUser {
-    id
-    email
-  }
-}`;
-
-const logoutNutation = gql`
-	mutation {
-		logout
-	}
-`;
-
-const currentUserQuery = gql`
-query {
-  currentUser {
-	id
-	email
-  }
-}`;

@@ -2,25 +2,28 @@
 
 :host {
     padding: 10px;
-    background-color: $primary-400;
 
     display: flex;
     justify-content: space-between;
+
+    align-items: center;
+
+    background-color: $primary-400;
 }
 
-.header {
-    &-icon {
-        display: flex;
+.icon {
+    height: 100%;
 
-        cursor: pointer;
+    display: flex;
 
-        &>img {
-            max-height: 100%;
-        }
+    cursor: pointer;
+
+    &>img {
+        max-height: 100%;
     }
+}
 
-    &-user-icon {
-        position: relative;
-        display: flex;
-    }
+.user-icon {
+    position: relative;
+    display: flex;
 }
