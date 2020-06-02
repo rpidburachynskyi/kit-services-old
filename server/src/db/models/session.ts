@@ -22,3 +22,5 @@ export const createSession = (userId: string) => {
 
 export const getSessionBySesid = (sesid: string) =>
 	sessionModel.findOne({ sesid });
+export const getSessionByUserId = (userId: string) =>
+	sessionModel.findOne({ userId });

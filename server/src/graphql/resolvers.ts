@@ -4,7 +4,7 @@ import {
 	createUser,
 	changePassword,
 } from "../db/models/user";
-import { createSession } from "../db/models/session";
+import { createSession, getSessionByUserId } from "../db/models/session";
 import {
 	getGroupMoverById,
 	getGroupMoversByUserId,
@@ -12,7 +12,6 @@ import {
 	saveGroupMover,
 	removeGroupMoverById,
 } from "../db/models/groupMover";
-import { MongoError } from "mongodb";
 import { EMAIL_IS_BUSY } from "../db/error-codes";
 
 export const resolvers = {
