@@ -140,6 +140,41 @@
           }
         }
       }
+    },
+    "kit-ui-angular": {
+      "projectType": "library",
+      "root": "projects/kit-ui-angular",
+      "sourceRoot": "projects/kit-ui-angular/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/kit-ui-angular/tsconfig.lib.json",
+            "project": "projects/kit-ui-angular/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/kit-ui-angular/src/test.ts",
+            "tsConfig": "projects/kit-ui-angular/tsconfig.spec.json",
+            "karmaConfig": "projects/kit-ui-angular/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/kit-ui-angular/tsconfig.lib.json",
+              "projects/kit-ui-angular/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "kit-services"

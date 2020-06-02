@@ -1,0 +1,19 @@
+@import "../../styles/colors.scss";
+
+:host {
+    align-self: flex-start;
+
+    background-color: $primary-100;
+    color: $secondary2-100;
+}
+
+input {
+    padding: 5px;
+    font-size: 18px;
+
+    border: none;
+    color: $secondary2-100;
+    background-color: transparent;
+
+    outline: none;
+}

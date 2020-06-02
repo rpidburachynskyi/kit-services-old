@@ -1,8 +1,0 @@
-<div class="header">
-    <ng-content select="kit-fixed-side-panel-header"></ng-content>
-    <button (click)="opened = !opened">Down</button>
-</div>
-<div class="content" [@contentState]="opened ? 'opened' : 'closed'">
-    <ng-content select="kit-fixed-side-panel-content"></ng-content>
-</div>
-<ng-content select="kit-fixed-side-panel-footer"></ng-content>

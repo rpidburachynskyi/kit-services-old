@@ -1,18 +1,24 @@
 <div class="what-to-do">
-    <kit-label text="What to do">
-        <kit-combobox [(ngModel)]="whatToDo">
-            <kit-combobox-option value="encrypt" text="Encrypt"></kit-combobox-option>
-            <kit-combobox-option value="decrypt" text="Decrypt"></kit-combobox-option>
-        </kit-combobox>
-    </kit-label>
+	<kit-label text="What to do">
+		<kit-combobox [(ngModel)]="whatToDo">
+			<kit-combobox-option
+				value="encrypt"
+				text="Encrypt"
+			></kit-combobox-option>
+			<kit-combobox-option
+				value="decrypt"
+				text="Decrypt"
+			></kit-combobox-option>
+		</kit-combobox>
+	</kit-label>
 </div>
 <kit-toggle [(ngModel)]="allInOne">
-    <kit-toggle-value side="left">One in one</kit-toggle-value>
-    <kit-toggle-value side="right">All in one</kit-toggle-value>
+	<kit-toggle-value side="left">One in one</kit-toggle-value>
+	<kit-toggle-value side="right">All in one</kit-toggle-value>
 </kit-toggle>
 <kit-label text="Output file name">
-    <kit-text-field [(ngModel)]="outputFileName"></kit-text-field>
+	<kit-text-field [(ngModel)]="outputFileName"></kit-text-field>
 </kit-label>
 <kit-toggle>
-    Save file names
+	Save file names
 </kit-toggle>

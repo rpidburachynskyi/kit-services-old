@@ -1,0 +1,28 @@
+:host {
+    padding: 6px 16px;
+
+    display: flex;
+
+    font-size: 16px;
+
+    color: black;
+    background-color: white;
+
+    border-radius: 4px;
+
+
+    &[type="info"] {
+        color: black;
+        background-color: cyan;
+    }
+
+    &[type="warning"] {
+        color: black;
+        background-color: yellow;
+    }
+
+    &[type="error"] {
+        color: cyan;
+        background-color: red;
+    }
+}

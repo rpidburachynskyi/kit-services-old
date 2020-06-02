@@ -1,0 +1,33 @@
+@import "./colors.scss";
+
+%button-template {
+    padding: 6px 16px;
+
+    color: $holdTextColor;
+    background-color: $holdBackgroundColor;
+    border: 2px solid $holdBorderColor;
+
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    &:hover {
+        color: $hoverTextColor;
+        background-color: $hoverBackgroundColor;
+        border-color: $hoverBorderColor;
+    }
+
+    &:active {
+        color: $activeTextColor;
+        background-color: $activeBackgroundColor;
+        border-color: $activeBorderColor;
+    }
+
+    &:disabled {
+        color: $disabledTextColor;
+        background-color: $disabledBackgroundColor;
+        border-color: $disabledBorderColor;
+    }
+}

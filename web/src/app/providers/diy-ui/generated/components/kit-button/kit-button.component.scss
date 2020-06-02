@@ -1,0 +1,17 @@
+@import "./styles/effects.scss";
+
+:host {
+    display: inline-flex;
+}
+
+.button {
+    @extend %button-template;
+    flex: 1;
+
+
+    box-sizing: border-box;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}

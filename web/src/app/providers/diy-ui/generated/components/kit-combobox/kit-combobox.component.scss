@@ -1,0 +1,49 @@
+@import "../../styles/effects.scss";
+
+%option-template {
+    @extend %button-template;
+
+    &:not(:first-child) {
+        border-top: none;
+    }
+}
+
+:host {
+    width: 170px;
+    display: inline-flex;
+
+}
+
+.kit-combobox {
+    position: relative;
+
+    flex: 1;
+    display: flex;
+
+    cursor: pointer;
+
+    &-value {
+        @extend %option-template;
+
+        flex: 1;
+    }
+
+    &-options,
+    &-groups {
+        width: 100%;
+        position: absolute;
+
+        max-height: 200px;
+        overflow: auto;
+
+        z-index: 1500;
+    }
+
+    &-options {}
+
+    &-groups {
+        display: grid;
+        grid-template-rows: auto-fill;
+        grid-row-gap: 5px;
+    }
+}

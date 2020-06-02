@@ -1,6 +1,0 @@
-<kit-input-file *ngFor="let file of files;let index = index" class="input-files-container-item"
-    (unload)="unloadFile(index)" multiple="true" [viewFile]="file">
-    {{ file.name }}
-</kit-input-file>
-<kit-input-file class="input-files-container-item" (upload)="uploadFile($event)" multiple="true">
-</kit-input-file>

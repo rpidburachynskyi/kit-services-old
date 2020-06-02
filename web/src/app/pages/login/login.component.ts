@@ -5,7 +5,8 @@ import {
 	LoginGQL,
 	CurrentUserDocument,
 } from "src/app/providers/apollo/generated/graphql";
-import { KitSnackbarComponent } from "src/layout/kit/kit-snackbar/kit-snackbar.component";
+import { Router } from "@angular/router";
+import { HomeComponent } from "../home/home.component";
 
 @Component({
 	selector: "app-login",
@@ -20,10 +21,7 @@ export class LoginComponent {
 		password: new FormControl(""),
 	});
 
-	constructor(
-		private loginGQL: LoginGQL,
-		private snackbar: KitSnackbarComponent
-	) {}
+	constructor(private loginGQL: LoginGQL, private router: Router) {}
 
 	onSubmit() {
 		this.loginGQL
@@ -41,7 +39,10 @@ export class LoginComponent {
 				}
 			)
 			.subscribe(
-				({ data: { login } }) => {},
+				({ data: { login } }) => {
+					// this.snackbar.notifyInfo("You've been logined");
+					this.router.navigateByUrl("/");
+				},
 				(error) => {
 					const errorMessage = error.message.substring(15);
 

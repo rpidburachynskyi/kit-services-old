@@ -7,13 +7,13 @@ import { AppComponent } from "./app.component";
 
 import { CodemirrorModule } from "@ctrl/ngx-codemirror";
 import { GroupMoverService } from "./services/regular-expression/group-mover/group-mover.service";
-import { GraphQLModule } from "./providers/apollo/graphql.module";
-import { KitModule } from "src/layout/kit.module";
+import { ApolloModule } from "./providers/apollo/apollo.module";
 import { PagesModule } from "./pages/pages.module";
 import { RouterModule } from "@angular/router";
 import { ServiceWorkerModule } from "./providers/service-worker/service-worker.module";
 import { ServicesModule } from "./services/services.module";
-import { HeaderModule } from "src/header/header.module";
+import { DiyUiModule } from "./providers/diy-ui/diy-ui.module";
+import { HeaderModule } from "../header/header.module";
 
 @NgModule({
 	declarations: [AppComponent],
@@ -25,14 +25,14 @@ import { HeaderModule } from "src/header/header.module";
 
 		HeaderModule,
 
-		KitModule,
+		DiyUiModule,
 
 		PagesModule,
 		CodemirrorModule,
 
 		ServicesModule,
 
-		GraphQLModule,
+		ApolloModule,
 
 		ServiceWorkerModule,
 	],

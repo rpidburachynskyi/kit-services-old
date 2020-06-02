@@ -1,8 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { iKitComboboxOption } from "src/layout/models/iKitComboboxOption.model";
+import { Component } from "@angular/core";
 import { WorkControlerService, iWorkExtend } from "../work-controler.service";
 import { Apollo } from "apollo-angular";
-import gql from "graphql-tag";
 
 import { iWork } from "../work-controler.service";
 import { ResultControlerService } from "../result-controler.service";
@@ -37,7 +35,7 @@ export class WorkControlerComponent {
 	get value(): string {
 		return this.workController.currentWork.id.toString();
 	}
-	get options(): iKitComboboxOption[] {
+	get options(): any[] {
 		return this.workController.works.map(({ id, name }) => ({
 			value: id.toString(),
 			text: name,
@@ -55,7 +53,6 @@ export class WorkControlerComponent {
 	) {}
 
 	changeWork(value: number) {
-		console.log(value);
 		this.workController.setWork(value);
 	}
 

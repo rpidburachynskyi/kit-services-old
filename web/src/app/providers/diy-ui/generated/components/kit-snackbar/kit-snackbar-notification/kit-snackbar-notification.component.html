@@ -1,0 +1,5 @@
+{{ notification.text }}
+
+<ng-container *ngFor="let action of notification.actions">
+	<button (click)="action.onClick()">{{ "123" }}</button>
+</ng-container>
