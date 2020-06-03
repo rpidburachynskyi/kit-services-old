@@ -1,29 +1,26 @@
-@import "../../projects/kit-ui-angular/src/components/styles/colors.scss";
 @import "../styles/colors";
 
 $secondary-100: red;
 
 :host {
-	flex: 1;
+    flex: 1;
 
-	display: grid;
-	grid-template-rows: 60px auto;
+    display: grid;
+    grid-template-rows: 60px auto;
 
-	background-color: black;
-	color: $primary-300;
+    background-color: black;
+    color: $primary-300;
 }
 
 main {
-	display: flex;
-	justify-content: center;
+    display: flex;
+    justify-content: center;
 
-	overflow: hidden;
+    overflow: hidden;
 }
 
-.description {
-}
+.description {}
 
 .part {
-	& .examples {
-	}
+    & .examples {}
 }
