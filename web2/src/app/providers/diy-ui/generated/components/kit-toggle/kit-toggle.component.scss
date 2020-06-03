@@ -1,0 +1,63 @@
+$height: 30px;
+
+:host {
+    display: inline-flex;
+}
+
+.kit-toggle {
+    margin: 0 2px;
+    height: $height;
+    position: relative;
+
+    display: flex;
+
+    & input[type="checkbox"] {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+
+        visibility: hidden;
+        position: absolute;
+
+        &:checked {
+            &~.kit-toggle-circle::after {
+                left: $height / 2;
+
+                background-color: #d836c4;
+            }
+        }
+    }
+
+    &-circle {
+        height: $height;
+        width: $height * 1.5;
+
+        border: 2px solid #580ead;
+        border-radius: $height / 2;
+
+        box-sizing: border-box;
+
+        &::after {
+            content: "";
+            height: 100%;
+
+            width: $height;
+
+            position: absolute;
+            left: 0;
+            top: calc(50% - #{$height / 2});
+
+            background-color: #b1009b;
+
+            border-radius: 50%;
+
+            transition-property: left color;
+            transition-duration: 0.3s;
+        }
+    }
+
+    &-value {
+        margin-left: $height / 4;
+    }
+}

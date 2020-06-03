@@ -1,0 +1,49 @@
+@import "../../styles/colors.scss";
+
+:host {
+    min-width: 30px;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 2px solid $primary-400;
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    &[disabled=true] {
+        .header {
+            color: $secondary2-500;
+            background-color: $primary-500;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.header {
+    padding: 6px 16px;
+
+    display: flex;
+
+
+    background-color: $primary-100;
+    color: $secondary2-100;
+    user-select: none;
+    cursor: pointer;
+    z-index: 2;
+
+    &-title {
+        color: inherit;
+        flex: 1;
+    }
+
+    &-arrow {
+        height: 24px;
+        transition: all 0.3s;
+    }
+}
+
+.content {
+    padding: 10px;
+    overflow: auto;
+}

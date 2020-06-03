@@ -1,0 +1,25 @@
+:host {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        background-color: #fff3;
+    }
+
+    &:active {
+        background-color: #fff5;
+    }
+
+    &[disabled="true"] {
+        background-color: #555f;
+    }
+}
+
+.kit-icon-button {
+    background-color: transparent;
+    border: none;
+}

@@ -1,0 +1,20 @@
+:host {
+    border: 2px solid white;
+}
+
+.input-files {
+    &-container {
+        padding: 10px;
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+
+        &-item {
+            height: 100px;
+
+            display: flex;
+
+            color: white;
+            border: 1px solid white;
+        }
+    }
+}

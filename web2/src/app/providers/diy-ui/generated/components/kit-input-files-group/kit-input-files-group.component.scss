@@ -1,0 +1,19 @@
+:host {
+    padding: 10px;
+
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);
+    grid-template-rows: repeat(auto-fill, 100px);
+    grid-gap: 10px;
+
+
+    &-item {
+
+        display: flex;
+
+        color: white;
+        border: 1px solid white;
+    }
+}

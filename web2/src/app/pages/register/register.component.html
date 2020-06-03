@@ -1,0 +1,20 @@
+<kit-text [type]="'title'" [align]="'center'">Register</kit-text>
+
+<form class="register-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+	<kit-label text="Email">
+		<kit-text-field formControlName="email"> </kit-text-field>
+	</kit-label>
+	<kit-label text="Password">
+		<kit-text-field
+			[password]="true"
+			formControlName="password"
+		></kit-text-field>
+	</kit-label>
+	<kit-label text="Confirm password">
+		<kit-text-field
+			[password]="true"
+			formControlName="confirmPassword"
+		></kit-text-field>
+	</kit-label>
+	<kit-button [disabled]="!form.valid">Register</kit-button>
+</form>

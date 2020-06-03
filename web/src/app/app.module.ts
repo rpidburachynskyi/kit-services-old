@@ -14,6 +14,7 @@ import { ServiceWorkerModule } from "./providers/service-worker/service-worker.m
 import { ServicesModule } from "./services/services.module";
 import { DiyUiModule } from "./providers/diy-ui/diy-ui.module";
 import { HeaderModule } from "../header/header.module";
+import { environment } from "../environments/environment";
 
 @NgModule({
 	declarations: [AppComponent],

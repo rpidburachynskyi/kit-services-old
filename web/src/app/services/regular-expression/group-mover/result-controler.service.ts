@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { WorkControlerService } from './work-controler.service';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
+import { WorkControlerService } from "./work-controler.service";
 
 enum ProcessType {
 	EachGroup,
 	Global,
-	Arguments
+	Arguments,
 }
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: "root",
 })
 export class ResultControlerService {
-
 	private worker: Worker;
 
 	private _isMatching: Boolean = true;
@@ -22,32 +21,46 @@ export class ResultControlerService {
 	private _eachFunctionError: any = null;
 	private _globalFunctionError: any = null;
 
-	get isMatching(): Boolean { return this._isMatching; };
+	get isMatching(): Boolean {
+		return this._isMatching;
+	}
 	set isMatching(value: Boolean) {
 		this._isMatching = value;
 		if (value) this.processMatches();
 	}
 
-	get isProccessing(): Boolean { return this._isProccessing; };
+	get isProccessing(): Boolean {
+		return this._isProccessing;
+	}
 	set isProccessing(value: Boolean) {
 		this._isProccessing = value;
 		if (value) this.proccessLast();
-	};
+	}
 
-	get isHighlighting$(): BehaviorSubject<Boolean> { return this._isHighlighting$; };
-	get isHighlighting(): Boolean { return this._isHighlighting$.getValue(); };
-	set isHighlighting(value: Boolean) { this._isHighlighting$.next(value); };
+	get isHighlighting$(): BehaviorSubject<Boolean> {
+		return this._isHighlighting$;
+	}
+	get isHighlighting(): Boolean {
+		return this._isHighlighting$.getValue();
+	}
+	set isHighlighting(value: Boolean) {
+		this._isHighlighting$.next(value);
+	}
 
-
-
-	get eachFunctionError(): any { return this._eachFunctionError; }
-	get globalFunctionError(): any { return this._globalFunctionError; }
+	get eachFunctionError(): any {
+		return this._eachFunctionError;
+	}
+	get globalFunctionError(): any {
+		return this._globalFunctionError;
+	}
 
 	_workController: WorkControlerService;
-	get workController(): WorkControlerService { return this._workController; };
+	get workController(): WorkControlerService {
+		return this._workController;
+	}
 	set workController(workController: WorkControlerService) {
 		this._workController = workController;
-		workController.currentWork$.subscribe(currentWork => {
+		workController.currentWork$.subscribe((currentWork) => {
 			this.proccessLast();
 		});
 	}
@@ -62,10 +75,12 @@ export class ResultControlerService {
 		this.matches$ = new BehaviorSubject<RegExpExecArray[]>([]);
 		this.result$ = new BehaviorSubject<string>("");
 
-		if (typeof Worker !== 'undefined') {
+		if (typeof Worker !== "undefined") {
 			// Create a new
-			this.worker = new Worker('./result-controller.worker', { type: 'module' })
-			this.worker.addEventListener('message', ({ data }) => {
+			this.worker = new Worker("./result-controller.worker", {
+				type: "module",
+			});
+			this.worker.addEventListener("message", ({ data }) => {
 				switch (data.type) {
 					case "FINISH_PROCESS_MATCHES": {
 						this.matches$.next(data.matches);
@@ -107,12 +122,13 @@ export class ResultControlerService {
 	processMatches = () => {
 		if (!this.isMatching) return;
 		this.worker.postMessage({
-			type: "PROCESS_MATCHES", data: {
+			type: "PROCESS_MATCHES",
+			data: {
 				regexp: this.workController.currentWork.regExpPattern,
-				text: this.workController.currentWork.textPattern
-			}
+				text: this.workController.currentWork.textPattern,
+			},
 		});
-	}
+	};
 
 	processEach() {
 		this.processType = ProcessType.EachGroup;
@@ -123,10 +139,11 @@ export class ResultControlerService {
 			return this.result$.next("");
 
 		this.worker.postMessage({
-			type: "PROCESS_EACH_FUNCTION", data: {
+			type: "PROCESS_EACH_FUNCTION",
+			data: {
 				code: this.workController.currentWork.eachFunction,
-				matches: this.matches$.getValue()
-			}
+				matches: this.matches$.getValue(),
+			},
 		});
 	}
 
@@ -139,10 +156,11 @@ export class ResultControlerService {
 			return this.result$.next("");
 
 		this.worker.postMessage({
-			type: "PROCESS_GLOBAL_FUNCTION", data: {
+			type: "PROCESS_GLOBAL_FUNCTION",
+			data: {
 				code: this.workController.currentWork.globalFunction,
-				matches: this.matches$.getValue()
-			}
+				matches: this.matches$.getValue(),
+			},
 		});
 	}
 
@@ -155,18 +173,25 @@ export class ResultControlerService {
 			return this.result$.next("");
 
 		this.worker.postMessage({
-			type: "PROCESS_ARGUMENTS_PATTERN", data: {
+			type: "PROCESS_ARGUMENTS_PATTERN",
+			data: {
 				pattern: this.workController.currentWork.argumentsPattern,
-				matches: this.matches$.getValue()
-			}
+				matches: this.matches$.getValue(),
+			},
 		});
 	}
 
 	proccessLast() {
 		switch (this.processType) {
-			case ProcessType.EachGroup: this.processEach(); return;
-			case ProcessType.Global: this.processGlobal(); return;
-			case ProcessType.Arguments: this.processArguments(); return;
+			case ProcessType.EachGroup:
+				this.processEach();
+				return;
+			case ProcessType.Global:
+				this.processGlobal();
+				return;
+			case ProcessType.Arguments:
+				this.processArguments();
+				return;
 		}
 	}
 }

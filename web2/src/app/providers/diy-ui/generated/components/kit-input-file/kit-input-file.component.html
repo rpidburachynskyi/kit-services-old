@@ -1,0 +1,19 @@
+<input #input style="display: none;" type="file" [multiple]="multiple" />
+<ng-container *ngIf="!viewFile; then thenTemplate; else elseTemplate"></ng-container>
+<ng-template #thenTemplate>
+    <div [@dragFiles]="dragFilesState" class="kit-input-file-background">
+        <ng-content></ng-content>
+    </div>
+</ng-template>
+<ng-template #elseTemplate>
+    <ng-container [ngSwitch]="viewFile.type">
+        <ng-container *ngSwitchCase="'image/jpeg'">
+            <img class="kit-input-file-image" [src]='src | async' />
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+            {{ viewFile.name }}
+        </ng-container>
+    </ng-container>
+    <div class="kit-input-file-minus">
+    </div>
+</ng-template>

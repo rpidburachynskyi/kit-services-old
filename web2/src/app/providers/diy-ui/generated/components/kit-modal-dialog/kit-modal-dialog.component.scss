@@ -1,0 +1,24 @@
+@import "../../styles/colors.scss";
+
+:host {
+    width: 100vw;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #0009;
+}
+
+.content {
+    padding: 30px;
+
+    background-color: $secondary-200;
+    border-radius: 10px;
+}

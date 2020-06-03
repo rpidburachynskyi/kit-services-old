@@ -1,0 +1,8 @@
+<div>
+    <button (click)="onClickInput()">Input</button>
+    <button [disabled]="!hasOutput" (click)="onClickOutput()">Output</button>
+</div>
+<div id="design-clean-input-text" class="design-clean">
+
+</div>
+<button *ngIf="inputOutputIndex === 0" (click)="onCleanClick()">Clean</button>

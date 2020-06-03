@@ -1,0 +1,24 @@
+:host {
+    flex: 1;
+
+    display: flex;
+}
+
+.crypto-files {
+    &-input-files {
+        flex: 1;
+    }
+
+    &-params {
+        flex: 1;
+
+        display: flex;
+        flex-direction: column;
+
+        &-input {}
+
+        &-crypto {
+            flex: 1;
+        }
+    }
+}

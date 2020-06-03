@@ -1,0 +1,33 @@
+@import "colors.scss";
+
+%button-template {
+    padding: 6px 16px;
+
+    color: $primary-100;
+    background-color: $secondary2-100;
+    border: 2px solid $secondary-100;
+
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    &:hover {
+        color: $primary-200;
+        background-color: $secondary2-200;
+        border-color: $secondary-200;
+    }
+
+    &:active {
+        color: $primary-300;
+        background-color: $secondary2-300;
+        border-color: $secondary-300;
+    }
+
+    &:disabled {
+        color: $primary-400;
+        background-color: $secondary2-400;
+        border-color: $secondary-400;
+    }
+}

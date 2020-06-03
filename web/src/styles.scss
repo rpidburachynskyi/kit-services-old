@@ -1,23 +1,21 @@
-@import "~codemirror/lib/codemirror";
-@import "~codemirror/theme/material";
-
-body, html {
-    height: 100%;
+body,
+html {
+	height: 100%;
 }
 
 body {
-    padding: 0;
-    margin: 0;
+	padding: 0;
+	margin: 0;
 
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .CodeMirror {
-    height: 100%!important; 
-    // code block fill parent
+	height: 100% !important;
+	// code block fill parent
 }
 
 .my-black-c {
-    background-color: green;
+	background-color: green;
 }

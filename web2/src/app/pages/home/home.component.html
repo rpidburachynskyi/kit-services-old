@@ -1,0 +1,20 @@
+<header>
+    <h1>Kit services</h1>
+    <h5>Will help you to decide your small problem (c) Pidburachynskyi Rostyslav</h5>
+</header>
+<main>
+    <section class="service-section" *ngFor="let service of allServices">
+        <div class="service-section__header">
+            <h4 class="service-section__header-title">{{ service.name }}</h4>
+        </div>
+        <div class="divider"></div>
+        <div class="service-section__body">
+            <menu>
+                <li *ngFor="let subservice of service.subservices">
+                    <a [routerLink]="service.path + subservice.path">{{ subservice.name }}</a>
+                </li>
+            </menu>
+            <a class="service-section__body-see-more" [routerLink]="service.path">See more...</a>
+        </div>
+    </section>
+</main>

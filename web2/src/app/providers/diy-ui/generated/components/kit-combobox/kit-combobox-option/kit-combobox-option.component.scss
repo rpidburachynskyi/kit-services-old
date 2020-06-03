@@ -1,0 +1,15 @@
+@import "../../../styles/effects.scss";
+
+:host {
+    @extend %button-template;
+
+    padding: 5px;
+
+    display: grid;
+    grid-template-columns: min-content min-content;
+    grid-column-gap: 5px;
+}
+
+.kit-combobox-option {
+    &-icon {}
+}

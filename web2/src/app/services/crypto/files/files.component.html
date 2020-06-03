@@ -1,0 +1,26 @@
+<kit-input-files-group [(files)]="files"></kit-input-files-group>
+
+<kit-fixed-side-panel localId="123">
+	<kit-fixed-side-panel-header>Params</kit-fixed-side-panel-header>
+	<kit-fixed-side-panel-content>
+		<kit-expansion-panel
+			title="Crypto params"
+			[scroll]="false"
+			localId="1234"
+		>
+			<div class="crypto-files-params">
+				<app-input-params
+					class="crypto-files-params-input"
+				></app-input-params>
+			</div>
+		</kit-expansion-panel>
+		<app-dencrypt-params
+			class="crypto-files-params-crypto"
+		></app-dencrypt-params>
+	</kit-fixed-side-panel-content>
+	<kit-fixed-side-panel-footer>
+		<kit-button style="flex: 1;" (click)="onDoClick()">{{
+			buttonLabel
+		}}</kit-button>
+	</kit-fixed-side-panel-footer>
+</kit-fixed-side-panel>

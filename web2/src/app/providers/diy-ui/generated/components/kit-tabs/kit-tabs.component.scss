@@ -1,0 +1,36 @@
+@import "../../styles/effects.scss";
+
+:host {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+.kit-tabs {
+    &-headers {
+        display: flex;
+        flex-direction: row;
+
+        &-item {
+            @extend %button-template;
+            flex: 1;
+
+            text-align: center;
+
+            &[active="true"] {
+                background-color: black;
+            }
+        }
+    }
+
+    &-content {
+        flex: 1;
+
+        display: flex;
+
+        overflow: hidden;
+    }
+}
