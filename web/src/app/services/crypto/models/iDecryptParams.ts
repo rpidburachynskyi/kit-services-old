@@ -1,5 +1,5 @@
-import { iDencryptParams } from './iDencryptParams';
+import { iCryptoOptions } from "./iCryptoOptions";
 
-export interface IDecryptParams extends iDencryptParams {
-    fileName: string
+export interface IDecryptParams extends iCryptoOptions {
+	fileName: string;
 }

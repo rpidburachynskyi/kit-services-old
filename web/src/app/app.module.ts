@@ -12,9 +12,9 @@ import { PagesModule } from "./pages/pages.module";
 import { RouterModule } from "@angular/router";
 import { ServiceWorkerModule } from "./providers/service-worker/service-worker.module";
 import { ServicesModule } from "./services/services.module";
-import { DiyUiModule } from "./providers/diy-ui/diy-ui.module";
 import { HeaderModule } from "../header/header.module";
-import { environment } from "../environments/environment";
+import { KitModule } from "src/kit/kit.module";
+import { ThemeManagerService } from "ng-multithemes-theme-manager";
 
 @NgModule({
 	declarations: [AppComponent],
@@ -26,7 +26,7 @@ import { environment } from "../environments/environment";
 
 		HeaderModule,
 
-		DiyUiModule,
+		KitModule,
 
 		PagesModule,
 		CodemirrorModule,

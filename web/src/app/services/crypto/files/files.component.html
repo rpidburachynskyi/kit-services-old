@@ -14,9 +14,12 @@
 				></app-input-params>
 			</div>
 		</kit-expansion-panel>
-		<app-dencrypt-params
+		<app-crypto-options
 			class="crypto-files-params-crypto"
-		></app-dencrypt-params>
+			[encrypting]="encrypting"
+			(encryptOptionsChange)="encryptOptions = $event"
+			(decryptOptionsChange)="decryptOptions = $event"
+		></app-crypto-options>
 	</kit-fixed-side-panel-content>
 	<kit-fixed-side-panel-footer>
 		<kit-button style="flex: 1;" (click)="onDoClick()">{{

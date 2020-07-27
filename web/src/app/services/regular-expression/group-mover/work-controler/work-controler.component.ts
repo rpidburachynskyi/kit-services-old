@@ -33,9 +33,16 @@ export class WorkControlerComponent {
 	}
 
 	get value(): string {
+		console.log(this.workController.currentWork.id.toString());
 		return this.workController.currentWork.id.toString();
 	}
 	get options(): any[] {
+		console.log(
+			this.workController.works.map(({ id, name }) => ({
+				value: id.toString(),
+				text: name,
+			}))
+		);
 		return this.workController.works.map(({ id, name }) => ({
 			value: id.toString(),
 			text: name,

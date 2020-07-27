@@ -1,0 +1,78 @@
+:host {
+	flex: 1;
+
+	display: flex;
+	flex-direction: column;
+
+	overflow: hidden;
+}
+@mixin use-theme(
+	$holdTextColor,
+	$holdBackgroundColor,
+	$holdBorderColor,
+	$hoverTextColor,
+	$hoverBackgroundColor,
+	$hoverBorderColor,
+	$activeTextColor,
+	$activeBackgroundColor,
+	$activeBorderColor,
+	$disabledTextColor,
+	$disabledBackgroundColor,
+	$disabledBorderColor
+) {
+	.kit-tabs {
+		&-headers {
+			display: flex;
+			flex-direction: row;
+
+			&-item {
+				padding: 6px 16px;
+
+				flex: 1;
+
+				color: $holdTextColor;
+				background-color: $holdBackgroundColor;
+				border: 2px solid $holdBorderColor;
+
+				font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+				font-size: 18px;
+				font-weight: 500;
+				text-align: center;
+
+				cursor: pointer;
+
+				box-sizing: border-box;
+
+				&:hover {
+					color: $hoverTextColor;
+					background-color: $hoverBackgroundColor;
+					border-color: $hoverBorderColor;
+				}
+
+				&:active {
+					color: $activeTextColor;
+					background-color: $activeBackgroundColor;
+					border-color: $activeBorderColor;
+				}
+
+				&:disabled {
+					color: $disabledTextColor;
+					background-color: $disabledBackgroundColor;
+					border-color: $disabledBorderColor;
+				}
+
+				&[active="true"] {
+					background-color: black;
+				}
+			}
+		}
+
+		&-content {
+			flex: 1;
+
+			display: flex;
+
+			overflow: hidden;
+		}
+	}
+}

@@ -1,7 +1,0 @@
-<h1>Login</h1>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-	<kit-text *ngIf="error">{{ error }}</kit-text>
-	<kit-text-field formControlName="email"></kit-text-field>
-	<kit-text-field formControlName="password"></kit-text-field>
-	<kit-button type="submit">Enter</kit-button>
-</form>

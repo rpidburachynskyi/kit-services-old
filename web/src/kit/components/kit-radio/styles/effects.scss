@@ -1,0 +1,11 @@
+@import "./colors.scss";
+
+%radio-template {
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 50%;
+
+    &[checked="true"] {
+        background-color: $checkedCircleColor;
+    }
+}

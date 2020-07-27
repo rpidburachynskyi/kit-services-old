@@ -1,0 +1,27 @@
+<kit-label text="Method">
+	<kit-combobox-native [(value)]="method">
+		<kit-combobox-native-option value="xor" [text]="'XOR'"
+			>XOR</kit-combobox-native-option
+		>
+		<kit-combobox-native-option value="rsa" [text]="'rsa'"
+			>RSA</kit-combobox-native-option
+		>
+	</kit-combobox-native>
+</kit-label>
+
+<ng-container [ngSwitch]="method">
+	<div class="" *ngSwitchCase="'xor'">
+		<kit-label text="Key">
+			<kit-text-field [(ngModel)]="key"></kit-text-field>
+		</kit-label>
+	</div>
+	<div class="" *ngSwitchCase="'rsa'">
+		<kit-label text="Prime number">
+			<kit-text-field [(ngModel)]="firstPrime"></kit-text-field>
+		</kit-label>
+
+		<kit-label text="Prime number">
+			<kit-text-field [(ngModel)]="secondPrime"></kit-text-field>
+		</kit-label>
+	</div>
+</ng-container>

@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="_type">
+<ng-container *ngIf="!readOnly" [ngSwitch]="_type">
 	<ng-container *ngSwitchCase="'js'">
 		<ngx-codemirror
 			#codeMirror
@@ -6,10 +6,65 @@
 			[ngModel]="code"
 			(ngModelChange)="onCodeChange($event)"
 			[options]="{
-				lineWrapping: true,
 				extraKeys: { 'Ctrl-Space': 'autocomplete' },
 				mode: { name: 'javascript', globalVars: true },
-				readOnly: readOnly
+				lineNumbers: true,
+				autoRefresh: true,
+				placeholder: placeholder
+			}"
+		></ngx-codemirror>
+		<ng-container>
+			<ng-content select="app-code-wrapper-errors"></ng-content>
+		</ng-container>
+	</ng-container>
+	<ng-container *ngSwitchCase="'regexp'">
+		<ngx-codemirror
+			#codeMirror
+			class="code-wrapper-code-mirror"
+			[ngModel]="code"
+			(ngModelChange)="onCodeChange($event)"
+			[options]="{
+				extraKeys: { 'Ctrl-Space': 'autocomplete' },
+				mode: { name: 'javascript', globalVars: true },
+				lineNumbers: true,
+				placeholder: placeholder
+			}"
+		></ngx-codemirror>
+		<ng-container>
+			<ng-content select="app-code-wrapper-errors"></ng-content>
+		</ng-container> </ng-container
+></ng-container>
+
+<ng-container *ngIf="readOnly" [ngSwitch]="_type">
+	<ng-container *ngSwitchCase="'js'">
+		<ngx-codemirror
+			#codeMirror
+			class="code-wrapper-code-mirror"
+			[ngModel]="code"
+			(ngModelChange)="onCodeChange($event)"
+			[options]="{
+				extraKeys: { 'Ctrl-Space': 'autocomplete' },
+				mode: { name: 'javascript', globalVars: true },
+				lineNumbers: true,
+				autoRefresh: true,
+				placeholder: placeholder
+			}"
+		></ngx-codemirror>
+		<ng-container>
+			<ng-content select="app-code-wrapper-errors"></ng-content>
+		</ng-container>
+	</ng-container>
+	<ng-container *ngSwitchCase="'regexp'">
+		<ngx-codemirror
+			#codeMirror
+			class="code-wrapper-code-mirror"
+			[ngModel]="code"
+			(ngModelChange)="onCodeChange($event)"
+			[options]="{
+				extraKeys: { 'Ctrl-Space': 'autocomplete' },
+				mode: { name: 'javascript', globalVars: true },
+				lineNumbers: true,
+				placeholder: placeholder
 			}"
 		></ngx-codemirror>
 		<ng-container>

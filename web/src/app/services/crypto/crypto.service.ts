@@ -1,41 +1,33 @@
 import { Injectable } from "@angular/core";
-import { iEncryptParams } from "./models/iEncryptParams";
-import { IDecryptParams } from "./models/iDecryptParams";
-import { DencryptMethods } from "./models/DencryptMethods.enum";
+import { CryptoMethods } from "./models/CryptoMethods.enum";
 import { CryptoWasmService } from "./crypto-wasm.service";
-import { WasmService } from "src/app/providers/wasm.service";
+import { IDecryptOptions } from "./models/DecryptOptions";
+import { IEncryptOptions } from "./models/EncryptOptions";
 
 @Injectable({
 	providedIn: "root",
 })
 export class CryptoService {
-	constructor(
-		private cryptoWasm: CryptoWasmService,
-		private wasm: WasmService
-	) {}
+	constructor(private cryptoWasm: CryptoWasmService) {}
 
-	encrypt = (buffer: Uint8Array, params: iEncryptParams) => {
+	encrypt(buffer: Uint8Array, params: IEncryptOptions) {
 		switch (params.method) {
-			case DencryptMethods.XOR:
-				return this.xor_encrypt(buffer, params.key);
-		}
-	};
-
-	decrypt(buffer: Uint8Array, params: IDecryptParams) {
-		switch (params.method) {
-			case DencryptMethods.XOR:
-				return this.xor_decrypt(buffer, params.key);
+			case CryptoMethods.XOR:
+				if (params.key === "") {
+					throw new Error("Key cannot be empty");
+				}
+				return this.cryptoWasm.xor_encrypt(buffer, params.key);
+			case CryptoMethods.RSA:
+				return this.cryptoWasm.rsa_encrypt(buffer, params.p, params.q);
 		}
 	}
 
-	private xor_encrypt(buffer: Uint8Array, key: string) {
-		let result = buffer;
-		let _key = new TextEncoder().encode(key);
-		for (let i = 0; i < result.byteLength; i++) {
-			result[i] = result[i] ^ _key[i % _key.length];
+	decrypt(buffer: Uint8Array, params: IDecryptOptions) {
+		switch (params.method) {
+			case CryptoMethods.XOR:
+				return this.cryptoWasm.xor_decrypt(buffer, params.key);
+			case CryptoMethods.RSA:
+				return this.cryptoWasm.rsa_decrypt(buffer, params.p, params.q);
 		}
-		return result;
 	}
-
-	private xor_decrypt = this.xor_encrypt;
 }

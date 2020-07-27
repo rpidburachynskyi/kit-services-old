@@ -7,10 +7,17 @@ import { JsTextComponent } from "./js-text/js-text.component";
 import { TextsRoutingModule } from "./texts-routing.module";
 import { FormsModule } from "@angular/forms";
 import { DesignCleanComponent } from "./design-clean/design-clean.component";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
 	declarations: [TextsComponent, JsTextComponent, DesignCleanComponent],
-	imports: [CommonModule, TextsRoutingModule, FormsModule, CodemirrorModule],
+	imports: [
+		CommonModule,
+		TextsRoutingModule,
+		FormsModule,
+		CodemirrorModule,
+		SharedModule,
+	],
 	exports: [],
 	providers: [JsTestService],
 })

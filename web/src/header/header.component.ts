@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ThemeManagerService } from "ng-multithemes-theme-manager";
 
 @Component({
 	selector: "app-header",
@@ -8,7 +9,20 @@ import { Component, OnInit } from "@angular/core";
 export class HeaderComponent implements OnInit {
 	userPanelVisible: Boolean = false;
 
-	constructor() {}
+	private _theme = "dark";
+	get theme(): string {
+		return this._theme;
+	}
+
+	set theme(theme: string) {
+		this._theme = theme;
+		this.themeManager.setTheme(`assets/themes/${theme}.css`);
+		localStorage.setItem("THEME", theme);
+	}
+
+	constructor(private themeManager: ThemeManagerService) {
+		this.theme = localStorage.getItem("THEME") ?? "dark";
+	}
 
 	ngOnInit() {}
 

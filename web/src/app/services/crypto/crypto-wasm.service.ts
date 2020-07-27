@@ -1,50 +1,50 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import * as Module from './crypto-wasm-source/crypto-wasm/crypto-wasm.js';
-import '!!file-loader?name=crypto-wasm-source/crypto-wasm/crypto-wasm.wasm!./crypto-wasm-source/crypto-wasm/crypto-wasm.wasm';
-import { filter, map } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
-
+import { NgWasmService } from "ng-wasm";
 
 @Injectable({
-  providedIn: "root"
+	providedIn: "root",
 })
-export class CryptoWasmService {
-  module: any
+export class CryptoWasmService extends NgWasmService {
+	constructor() {
+		super("CryptoModule", "crypto.js");
+	}
 
-  wasmReady = new BehaviorSubject<boolean>(false)
+	xor_encrypt(data: Uint8Array, key: string): Uint8Array {
+		const offset = this.module._malloc(data.length);
+		this.module.HEAP8.set(data, offset);
+		const pointer = this.module.ccall(
+			"xor_encrypt",
+			"char *",
+			["char*", "int", "string"],
+			[offset, data.length, key]
+		);
+		return this.readUint8Array(pointer, data.length);
+	}
 
-  constructor() {
-    this.instantiateWasm('crypto-wasm-source/crypto-wasm/crypto-wasm.wasm');
-    this.xor_encrypt("", "s").subscribe(console.log);
-  }
+	xor_decrypt = this.xor_encrypt;
 
-  private async instantiateWasm(url: string) {
-    // fetch the wasm file
-    const wasmFile = await fetch(<string>(url));
+	rsa_encrypt(data: Uint8Array, p: number, q: number): Uint8Array {
+		const offset = this.module._malloc(data.length);
+		this.module.HEAP8.set(data, offset);
+		const pointer = this.module.ccall(
+			"rsa_encrypt",
+			"char *",
+			["char*", "int", "int"],
+			[offset, data.length, p, q]
+		);
+		return this.readUint8Array(pointer, data.length * 2);
+	}
 
-    // convert it into a binary array
-    const buffer = await wasmFile.arrayBuffer();
-    const binary = new Uint8Array(buffer);
-
-    // create module arguments
-    // including the wasm-file
-    const moduleArgs = {
-      wasmBinary: binary,
-      onRuntimeInitialized: () => {
-        this.wasmReady.next(true) // <-- this line
-      },
-    }
-    // instantiate the module
-    this.module = Module(moduleArgs);
-    console.log(this.module);
-  }
-
-  public xor_encrypt(data: string, key: string): Observable<number> {
-    return this.wasmReady.pipe(filter(value => value === true)).pipe(
-      map(() => {
-        return this.module._fibonacci(10);
-      })
-    );
-  }
+	rsa_decrypt(data: Uint8Array, p: number, q: number): Uint8Array {
+		const offset = this.module._malloc(data.length);
+		this.module.HEAP8.set(data, offset);
+		const pointer = this.module.ccall(
+			"rsa_decrypt",
+			"char *",
+			["char*", "int", "int"],
+			[offset, data.length / 2, p, q]
+		);
+		return this.readUint8Array(pointer, data.length);
+	}
 }

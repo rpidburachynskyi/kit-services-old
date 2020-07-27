@@ -3,10 +3,9 @@ import { CommonModule } from "@angular/common";
 import { CodesRoutingModule } from "./codes-routing.module";
 
 import { CodesComponent } from "./codes.component";
-import { MinimizerComponent } from "./minimizer/minimizer.component";
 
 @NgModule({
-	declarations: [CodesComponent, MinimizerComponent],
+	declarations: [CodesComponent],
 	imports: [CommonModule, CodesRoutingModule],
 	exports: [],
 	providers: [],

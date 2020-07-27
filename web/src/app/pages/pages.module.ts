@@ -8,7 +8,7 @@ import { LoginComponent } from "./login/login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { ProfileComponent } from "./profile/profile.component";
-import { DiyUiModule } from "../providers/diy-ui/diy-ui.module";
+import { KitModule } from "src/kit/kit.module";
 
 @NgModule({
 	declarations: [
@@ -23,7 +23,7 @@ import { DiyUiModule } from "../providers/diy-ui/diy-ui.module";
 		FormsModule,
 		ReactiveFormsModule,
 		RouterModule,
-		DiyUiModule,
+		KitModule,
 	],
 })
 export class PagesModule {}

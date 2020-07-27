@@ -1,0 +1,87 @@
+@mixin use-theme(
+	$holdTextColor: $primary-100,
+	$holdBackgroundColor: $secondary2-100,
+	$holdBorderColor: $secondary-100,
+	$hoverTextColor: $primary-200,
+	$hoverBackgroundColor: $secondary2-200,
+	$hoverBorderColor: $secondary-200,
+	$activeTextColor: $primary-300,
+	$activeBackgroundColor: $secondary2-300,
+	$activeBorderColor: $secondary-300,
+	$disabledTextColor: $primary-400,
+	$disabledBackgroundColor: $secondary2-400,
+	$disabledBorderColor: $secondary-400
+) {
+	.kit-combobox-native {
+		width: 170px;
+		display: inline-flex;
+		position: relative;
+
+		flex: 1;
+		display: flex;
+
+		cursor: pointer;
+
+		&-select {
+			padding: 6px 16px;
+
+			flex: 1;
+
+			color: $holdTextColor;
+			background-color: $holdBackgroundColor;
+			border: 2px solid $holdBorderColor;
+
+			font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+			font-size: 18px;
+			font-weight: 500;
+			text-align: center;
+
+			cursor: pointer;
+
+			box-sizing: border-box;
+
+			&:hover {
+				color: $hoverTextColor;
+				background-color: $hoverBackgroundColor;
+				border-color: $hoverBorderColor;
+			}
+
+			&:active {
+				color: $activeTextColor;
+				background-color: $activeBackgroundColor;
+				border-color: $activeBorderColor;
+			}
+
+			&:disabled {
+				color: $disabledTextColor;
+				background-color: $disabledBackgroundColor;
+				border-color: $disabledBorderColor;
+			}
+
+			&[active="true"] {
+				background-color: black;
+			}
+
+			&:not(:first-child) {
+				border-top: none;
+			}
+		}
+
+		&-options,
+		&-groups {
+			width: 100%;
+			position: absolute;
+
+			max-height: 200px;
+			overflow: auto;
+
+			z-index: 1500;
+		}
+
+		&-groups {
+			display: grid;
+			grid-template-rows: auto-fill;
+			grid-row-gap: 5px;
+		}
+	}
+}

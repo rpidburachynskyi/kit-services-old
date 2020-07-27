@@ -5,6 +5,7 @@ import {
 	Output,
 	EventEmitter,
 	ViewChild,
+	AfterViewInit,
 } from "@angular/core";
 import { CodemirrorComponent } from "@ctrl/ngx-codemirror";
 
@@ -13,25 +14,25 @@ import { CodemirrorComponent } from "@ctrl/ngx-codemirror";
 	templateUrl: "./code-wrapper.component.html",
 	styleUrls: ["./code-wrapper.component.scss"],
 })
-export class CodeWrapperComponent implements OnInit {
+export class CodeWrapperComponent {
 	@Input("type") _type: "js" | "regexp" = "js";
 	@Input("viewOnly") _viewOnly: Boolean = false;
 
 	@Input("code") code: string = "";
 	@Input("readOnly") readOnly: Boolean = false;
 
+	@Input("placeholder") placeholder: string = "";
+
 	@Output("codeChange") codeChange = new EventEmitter<string>();
 
-	@ViewChild("codeMirror", { static: true })
-	private _codeMirror: CodemirrorComponent;
+	@ViewChild("codeMirror", { static: false })
+	_codeMirror: CodemirrorComponent;
 
 	get codeMirror(): CodeMirror.EditorFromTextArea {
 		return this._codeMirror ? this._codeMirror.codeMirror : null;
 	}
 
 	constructor() {}
-
-	ngOnInit() {}
 
 	onCodeChange(code: string) {
 		this.codeChange.emit(code);

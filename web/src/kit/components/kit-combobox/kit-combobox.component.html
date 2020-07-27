@@ -1,0 +1,21 @@
+<div class="kit-combobox">
+	<kit-combobox-option
+		class="kit-combobox-value"
+		(click)="opened = !opened"
+		>{{ optionValue ? optionValue.text : "" }}</kit-combobox-option
+	>
+	<div
+		*ngIf="groups.length !== 0"
+		[@listState]="opened ? 'opened' : 'closed'"
+		class="kit-combobox-groups"
+	>
+		<ng-content select="kit-combobox-option-group"></ng-content>
+	</div>
+	<div
+		*ngIf="groups.length === 0"
+		[@listState]="opened ? 'opened' : 'closed'"
+		class="kit-combobox-options"
+	>
+		<ng-content select="kit-combobox-option"></ng-content>
+	</div>
+</div>

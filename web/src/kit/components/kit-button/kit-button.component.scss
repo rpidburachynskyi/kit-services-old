@@ -1,0 +1,60 @@
+@import "../../styles/colors.scss";
+
+
+
+:host {
+    display: inline-flex;
+}
+
+@mixin use-theme($holdTextColor,
+    $holdBackgroundColor,
+    $holdBorderColor,
+
+    $hoverTextColor,
+    $hoverBackgroundColor,
+    $hoverBorderColor,
+
+    $activeTextColor,
+    $activeBackgroundColor,
+    $activeBorderColor,
+
+    $disabledTextColor,
+    $disabledBackgroundColor,
+
+    $disabledBorderColor) {
+    .button {
+        padding: 6px 16px;
+
+        flex: 1;
+
+        color: $holdTextColor;
+        background-color: $holdBackgroundColor;
+        border: 2px solid $holdBorderColor;
+
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+
+        cursor: pointer;
+
+        box-sizing: border-box;
+
+        &:hover {
+            color: $hoverTextColor;
+            background-color: $hoverBackgroundColor;
+            border-color: $hoverBorderColor;
+        }
+
+        &:active {
+            color: $activeTextColor;
+            background-color: $activeBackgroundColor;
+            border-color: $activeBorderColor;
+        }
+
+        &:disabled {
+            color: $disabledTextColor;
+            background-color: $disabledBackgroundColor;
+            border-color: $disabledBorderColor;
+        }
+    }
+}

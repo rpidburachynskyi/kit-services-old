@@ -4,26 +4,27 @@ import { CryptoComponent } from "./crypto.component";
 import { CryptoRoutingModule } from "./crypto-routing.module";
 import { FilesComponent } from "./files/files.component";
 import { InputFilesComponent } from "./files/input-files/input-files.component";
-import { DencryptParamsComponent } from "./dencrypt-params/dencrypt-params.component";
+import { CryptoOptionsComponent } from "./crypto-options/crypto-options.component";
 import { FileSaverModule } from "ngx-filesaver";
 import { FormsModule } from "@angular/forms";
 import { InputParamsComponent } from "./files/input-params/input-params.component";
-import { DiyUiModule } from "../../providers/diy-ui/diy-ui.module";
-
+import { KitModule } from "src/kit/kit.module";
+import { NgWasmModule } from "ng-wasm";
 @NgModule({
 	declarations: [
 		CryptoComponent,
 		FilesComponent,
 		InputFilesComponent,
 		InputParamsComponent,
-		DencryptParamsComponent,
+		CryptoOptionsComponent,
 	],
 	imports: [
 		CommonModule,
 		CryptoRoutingModule,
-		DiyUiModule,
+		KitModule,
 		FileSaverModule,
 		FormsModule,
+		NgWasmModule,
 	],
 	exports: [CryptoComponent],
 	providers: [],

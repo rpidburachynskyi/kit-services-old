@@ -6,9 +6,7 @@
 		"kit-services": {
 			"projectType": "application",
 			"schematics": {
-				"@schematics/angular:component": {
-					"style": "scss"
-				}
+				"@schematics/angular:component": { "style": "scss" }
 			},
 			"root": "",
 			"sourceRoot": "src",
@@ -19,9 +17,7 @@
 					"options": {
 						"customWebpackConfig": {
 							"path": "./extra-webpack.config.js",
-							"mergeStrategies": {
-								"externals": "replace"
-							}
+							"mergeStrategies": { "externals": "replace" }
 						},
 						"outputPath": "dist/kit-services",
 						"index": "src/index.html",
@@ -34,13 +30,29 @@
 							"src/assets",
 							"src/manifest.webmanifest"
 						],
+						"extractCss": true,
 						"styles": [
 							"src/styles.scss",
-							"./node_modules/codemirror/lib/codemirror.css"
+							"./node_modules/codemirror/lib/codemirror.css",
+							{
+								"lazy": true,
+								"inject": false,
+								"input": "src\\themes\\dark.scss",
+								"bundleName": "assets/themes/dark"
+							},
+							{
+								"lazy": true,
+								"inject": false,
+								"input": "src\\themes\\light.scss",
+								"bundleName": "assets/themes/light"
+							}
 						],
 						"scripts": [
 							"./node_modules/codemirror/lib/codemirror.js",
-							"./src/assets/libs/splitter.js"
+							"./src/assets/libs/splitter.js",
+							"./node_modules/codemirror/mode/javascript/javascript.js",
+							"./node_modules/codemirror/addon/display/autorefresh.js",
+							"./node_modules/codemirror/addon/display/placeholder.js"
 						],
 						"webWorkerTsConfig": "tsconfig.worker.json"
 					},
@@ -80,9 +92,7 @@
 				},
 				"serve": {
 					"builder": "@angular-builders/custom-webpack:dev-server",
-					"options": {
-						"browserTarget": "kit-services:build"
-					},
+					"options": { "browserTarget": "kit-services:build" },
 					"configurations": {
 						"production": {
 							"browserTarget": "kit-services:build:production"
@@ -91,9 +101,7 @@
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "kit-services:build"
-					}
+					"options": { "browserTarget": "kit-services:build" }
 				},
 				"test": {
 					"builder": "@angular-devkit/build-angular:karma",
@@ -172,7 +180,5 @@
 		}
 	},
 	"defaultProject": "kit-services",
-	"cli": {
-		"analytics": "a57f2059-6f81-47df-8e6d-cdd26b1f3059"
-	}
+	"cli": { "analytics": "a57f2059-6f81-47df-8e6d-cdd26b1f3059" }
 }

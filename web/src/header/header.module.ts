@@ -4,8 +4,9 @@ import { HeaderComponent } from "./header.component";
 import { UserPanelComponent } from "./user-panel/user-panel.component";
 import { RouterModule } from "@angular/router";
 import { ClickOutsideModule } from "ng-click-outside";
-import { DiyUiModule } from "../app/providers/diy-ui/diy-ui.module";
 import { SharedModule } from "../app/shared/shared.module";
+import { FormsModule } from "@angular/forms";
+import { KitModule } from "src/kit/kit.module";
 
 @NgModule({
 	declarations: [HeaderComponent, UserPanelComponent],
@@ -13,10 +14,10 @@ import { SharedModule } from "../app/shared/shared.module";
 		CommonModule,
 		RouterModule,
 		SharedModule,
-		DiyUiModule,
+		KitModule,
 		ClickOutsideModule,
 	],
-	exports: [HeaderComponent],
+	exports: [HeaderComponent, FormsModule],
 	providers: [],
 })
 export class HeaderModule {}

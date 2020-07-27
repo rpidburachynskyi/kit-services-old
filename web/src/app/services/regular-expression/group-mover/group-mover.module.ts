@@ -11,8 +11,8 @@ import { GroupMoverService } from "./group-mover.service";
 import { ResultControlerService } from "./result-controler.service";
 import { CodemirrorModule, CodemirrorComponent } from "@ctrl/ngx-codemirror";
 import { FormsModule } from "@angular/forms";
-import { DiyUiModule } from "../../../providers/diy-ui/diy-ui.module";
 import { SharedModule } from "../../../shared/shared.module";
+import { KitModule } from "src/kit/kit.module";
 
 @NgModule({
 	declarations: [
@@ -27,7 +27,7 @@ import { SharedModule } from "../../../shared/shared.module";
 		CommonModule,
 		CodemirrorModule,
 		FormsModule,
-		DiyUiModule,
+		KitModule,
 		CodemirrorModule,
 		SharedModule,
 	],
